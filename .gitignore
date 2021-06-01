@@ -1,4 +1,14 @@
+# eclipse project file
+.metadata
 bin/
+tmp/
+.settings/
+
 .classpath
 .project
-.settings/
+
+# IntelliJ project files 
+*.iml
+*.iws
+*.ipr
+.idea/
