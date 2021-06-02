@@ -18,20 +18,29 @@ public class BookManagement {
 	}
 	
 	public Book searchBook(String name) {
-		Book value = library.stream().
+		Book returnBook = library.stream().
 				filter(book -> book.getName().equals(name)).
 				findFirst()
 				.orElse(null);
-		//((book)-> if(book.name.equals(name)) );		
-		return value;
+		//((returnBook)-> if(book.name.equals(name)) );		
+		return returnBook;
 	}
 	
-	public void deleteBook() {
-		
+	public void removeBook(String name) {
+		Book removeBook = library.stream().
+				filter(book -> book.getName().equals(name)).
+				findFirst()
+				.orElse(null);		
+		if(removeBook != null) {
+			library.remove(removeBook);
+		}
 	}
 	
-	public void updateBook() {
-		
+	public void updateBook(String name, int categoryNumber) {
+		Book updateBook = searchBook(name);	
+		if(updateBook != null) {
+			updateBook.setCategory(categoryNumber);	
+		}
 	}
 	
 	public void showAll() {

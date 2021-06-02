@@ -96,7 +96,7 @@ public class Book implements Serializable {
 	}
 	@Override
 	public String toString() {
-		String blank = "|\t";
+		String blank = " | ";
 		return this.categoryName + blank + 
 				this.name + blank + 
 				this.author + blank + 
