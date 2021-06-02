@@ -82,4 +82,25 @@ public class Book implements Serializable {
 		this.categoryName = generateName;
 	}
 	
+	@Override
+	public int hashCode() {
+		return categoryName.hashCode();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Book)) {
+			return false;
+		}
+		Book book = (Book)obj;
+		return categoryName.equals(book.categoryName);
+	}
+	@Override
+	public String toString() {
+		String blank = "|\t";
+		return this.categoryName + blank + 
+				this.name + blank + 
+				this.author + blank + 
+				this.publisher + blank + 
+				Integer.toString(category);
+	}
 }

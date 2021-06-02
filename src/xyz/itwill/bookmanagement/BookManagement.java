@@ -34,4 +34,10 @@ public class BookManagement {
 		
 	}
 	
+	public void showAll() {
+		System.out.println("모든 책 목록 출력");
+		System.out.println("고유번호 | 책이름 | 저자 | 출판사 | 분류번호");
+		library.stream().forEach(book-> System.out.println(book.toString()));
+	}
+	
 }
