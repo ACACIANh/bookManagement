@@ -3,50 +3,57 @@ package xyz.itwill.bookmanagement;
 import java.util.LinkedHashSet;
 
 public class BookManagement {
-	LinkedHashSet<Book> library = null; //추후에 Collection으로 변경
-	
+	LinkedHashSet<Book> library = null; // 추후에 Collection으로 변경
+
 	public BookManagement() {
 		super();
 		this.library = new LinkedHashSet<Book>();
 	}
 
 	public void insertBook(Book book) {
-		if(library.contains(book)){
+		if (library.contains(book)) {
+			System.out.println(book.getCategoryName() + " 은(는) 이미 존재합니다.");
 			return;
 		}
 		library.add(book);
+		System.out.println(book.getCategoryName() + " 가(이) 추가 되었습니다.");
+		//showBook(book);
 	}
-	
+
 	public Book searchBook(String name) {
-		Book returnBook = library.stream().
-				filter(book -> book.getName().equals(name)).
-				findFirst()
-				.orElse(null);
-		//((returnBook)-> if(book.name.equals(name)) );		
+		Book returnBook = library.stream().filter(book -> book.getName().equals(name)).findAny().orElse(null);
+		if (returnBook != null) {
+			System.out.println("검색 되었습니다.");
+		} else {
+			System.out.println(name + " 을 찾을 수 없습니다.");
+		}
 		return returnBook;
 	}
-	
+
 	public void removeBook(String name) {
-		Book removeBook = library.stream().
-				filter(book -> book.getName().equals(name)).
-				findFirst()
-				.orElse(null);		
-		if(removeBook != null) {
+		Book removeBook = searchBook(name);
+		if (removeBook != null) {
 			library.remove(removeBook);
+			System.out.println("삭제 완료");
 		}
 	}
-	
+
 	public void updateBook(String name, int categoryNumber) {
-		Book updateBook = searchBook(name);	
-		if(updateBook != null) {
-			updateBook.setCategory(categoryNumber);	
+		Book updateBook = searchBook(name);
+		if (updateBook != null) {
+			updateBook.setCategory(categoryNumber);
+			System.out.println("업데이트 완료");
 		}
 	}
-	
+
 	public void showAll() {
 		System.out.println("모든 책 목록 출력");
-		System.out.println("고유번호 | 책이름 | 저자 | 출판사 | 분류번호");
-		library.stream().forEach(book-> System.out.println(book.toString()));
+		System.out.println(" | 고유번호 | 책이름 | 저자 | 출판사 | 분류번호 |");
+		library.stream().forEach(book -> showBook(book));
 	}
-	
+
+	public void showBook(Book book) {
+		System.out.println(book.toString());
+	}
+
 }
