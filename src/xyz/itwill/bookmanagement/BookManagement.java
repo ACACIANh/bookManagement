@@ -19,7 +19,7 @@ public class BookManagement {
 	
 	public Book searchBook(String name) {
 		Book value = library.stream().
-				filter(book -> book.name.equals(name)).
+				filter(book -> book.getName().equals(name)).
 				findFirst()
 				.orElse(null);
 		//((book)-> if(book.name.equals(name)) );		
