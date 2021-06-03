@@ -10,18 +10,20 @@ public class JManagementSwing extends JFrame {
 	
 	public JTabbedPane tabPane = null;
 
-	JPanel panel = new JBookManagePane();
+	JPanel panel = null;
 	
 	public JManagementSwing() {
 		setTitle("도서 관리 프로그램");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(600, 200, 450, 500);
+		setBounds(100, 100, 800, 400);
 		createTab();
 		this.add(tabPane);
 	}
 	
 	public void createTab() {
 		tabPane = new JTabbedPane();
+		panel = new JBookManagePane();
+		
 		tabPane.addTab("도서 관리", panel);
 		tabPane.addTab("회원 관리", new JLabel("menu 2"));
 	}

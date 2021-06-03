@@ -8,7 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.TextField;
 
 
 public class JBookManagePane extends JPanel{
@@ -22,33 +24,27 @@ public class JBookManagePane extends JPanel{
 	JPanel leftBottomPanel = null;
 	
 	//BottomSide
-	
+	TextField searchTextField = null;
+	JButton searchButton = null; 
+	JButton cancleButton = null; 
 	
 	//CenterSide
 	JTable table = null;
 	JScrollPane centerScroll = null;
 	
 	public JBookManagePane() {
-
 		setLayout(new BorderLayout());
 		
 		mainPanel = new JPanel[EBdLayout.values().length];
 		for(int i=0;i<EBdLayout.values().length; ++i) {
 			mainPanel[i] = new JPanel();
+			add(mainPanel[i], EBdLayout.getTransStr(i));
 		}
 		
-		//for문 안에 넣고 싶어요..
-		add(mainPanel[EBdLayout.NORTH.getValue()], BorderLayout.NORTH);
-		add(mainPanel[EBdLayout.SOUTH.getValue()], BorderLayout.SOUTH);
-		add(mainPanel[EBdLayout.EAST.getValue()], BorderLayout.EAST);
-		add(mainPanel[EBdLayout.WEST.getValue()], BorderLayout.WEST);
-		add(mainPanel[EBdLayout.CENTER.getValue()], BorderLayout.CENTER);
-
 		///////////////////////////
 		//LeftSidePanel Constructor
 		///////////////////////////
 		
-		//add(mainPanel[EBdLayout.WEST.getValue()], BorderLayout.WEST);
 		mainPanel[EBdLayout.WEST.getValue()].setLayout(new BorderLayout());
 		
 		leftBottomPanel = new JPanel();
@@ -71,30 +67,38 @@ public class JBookManagePane extends JPanel{
 		//BottomSidePanel Constructor
 		///////////////////////////
 		
-		JButton btnNewButton = new JButton("New button");
-		mainPanel[EBdLayout.SOUTH.getValue()].add(btnNewButton);
-	
+		searchTextField = new TextField();
+		searchTextField.setFont(new Font("고딕", Font.BOLD, 18));
+		searchTextField.setColumns(20);
+		mainPanel[EBdLayout.SOUTH.getValue()].add(searchTextField);
 		
+		searchButton = new JButton("검색");
+		mainPanel[EBdLayout.SOUTH.getValue()].add(searchButton);
+		
+		cancleButton = new JButton("취소");
+		mainPanel[EBdLayout.SOUTH.getValue()].add(cancleButton);
 	
 		///////////////////////////
 		//CenterSidePanel Constructor
 		///////////////////////////
 		
-		String[] columnNames = { "도서정보", "임시" };
-		String[][] rowData = {{ "test", "dd",}, { "test2", "dd2",},
-								{ "test", "dd",}, { "test2", "dd2",}};
+		String[] columnNames = Book.expressAtrribute;
+		String[][] rowData = BookManagement.getInstance().getString2Dimension();
 		DefaultTableModel tableModel = new DefaultTableModel(rowData, columnNames);
 		table = new JTable(tableModel);		//열과 행 넣어주기
 		centerScroll = new JScrollPane(table);
 		add(centerScroll, BorderLayout.CENTER);
 		
-		/////
-		
-
-		
-		
-		
+		//createTemp();
+	}
+	
+	void createTemp() {
 		//temp
+		JPanel panel_left = new JPanel();
+		add(panel_left, BorderLayout.WEST);	
+		JLabel newlabel_left = new JLabel("left side");
+		panel_left.add(newlabel_left);
+		
 		JPanel panel_top = new JPanel();
 		add(panel_top, BorderLayout.NORTH);	
 		JLabel newlabel_top = new JLabel("top side");
@@ -105,8 +109,17 @@ public class JBookManagePane extends JPanel{
 		JLabel newlabel_right = new JLabel("right side");
 		panel_right.add(newlabel_right);
 		
+		JPanel panel_bottom = new JPanel();
+		add(panel_bottom, BorderLayout.SOUTH);	
+		
+		TextField textField_bottom = new TextField();
+		textField_bottom.setFont(new Font("고딕", Font.BOLD, 18));
+		textField_bottom.setColumns(20);
+		panel_bottom.add(textField_bottom);
+		
+		JLabel newlabel_bottom = new JLabel("bottom side");
+		panel_bottom.add(newlabel_bottom);
 	}
-	
 	
 	
 	

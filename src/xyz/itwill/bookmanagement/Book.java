@@ -2,7 +2,9 @@ package xyz.itwill.bookmanagement;
 
 import java.io.Serializable;
 
-public class Book implements Serializable {
+public class Book implements Serializable {	
+	public static String[] expressAtrribute = {"고유 번호", "제목", "저자", "출판사"};
+	
 	private static final long serialVersionUID = 1060401278850448591L;
 	private static int seedId = 0;
 
@@ -113,5 +115,11 @@ public class Book implements Serializable {
 		String blank = " | ";
 		return blank + this.categoryName + blank + this.name + blank + this.author + blank + this.publisher + blank
 				+ Integer.toString(category) + blank;
+	}
+	
+	public String[] toStringArr() {
+		//{"고유 번호", "제목", "저자", "출판사"};
+		String[] returnStr = {categoryName, name, author, publisher};
+		return returnStr;
 	}
 }

@@ -1,15 +1,23 @@
 package xyz.itwill.bookmanagement;
 
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 
-public class BookManagement {
-	LinkedHashSet<Book> library = null; // 추후에 Collection으로 변경
+public class BookManagement{
+	private static BookManagement instance = null;
+	private LinkedHashSet<Book> library = null; // 추후에 Collection으로 변경
 
-	public BookManagement() {
-		super();
+	public static BookManagement getInstance() {
+		if(instance == null) {
+			instance = new BookManagement();
+		}
+		return instance;
+	}
+	
+	private BookManagement() {
 		this.library = new LinkedHashSet<Book>();
 	}
-
+	
 	public void insertBook(Book book) {
 		if (library.contains(book)) {
 			System.out.println(book.getCategoryName() + " 은(는) 이미 존재합니다.");
@@ -54,6 +62,17 @@ public class BookManagement {
 
 	public void showBook(Book book) {
 		System.out.println(book.toString());
+	}
+	
+	public String[][] getString2Dimension(){
+		String[][] returnStr = new String[library.size()][Book.expressAtrribute.length];
+		//String[][] returnStr2 = library.toArray().toString();
+		Iterator<Book> iter = library.iterator();
+		for(int i=0; i<library.size();++i) {
+			//returnStr[i] = library.at(i).toStringArr();
+			returnStr[i]= iter.next().toStringArr();
+		}	
+		return returnStr;
 	}
 
 }
