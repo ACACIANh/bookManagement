@@ -17,7 +17,9 @@ public class JManagementSwing extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 400);
 		createTab();
-		this.add(tabPane);
+		//setResizable(false);
+		setLocationRelativeTo(null);
+		add(tabPane);
 	}
 	
 	public void createTab() {

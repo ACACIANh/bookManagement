@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.TextField;
@@ -29,8 +30,9 @@ public class JBookManagePane extends JPanel{
 	JButton cancleButton = null; 
 	
 	//CenterSide
-	JTable table = null;
 	JScrollPane centerScroll = null;
+	JTable table = null;
+	DefaultTableModel tableModel = null;
 	
 	public JBookManagePane() {
 		setLayout(new BorderLayout());
@@ -49,7 +51,7 @@ public class JBookManagePane extends JPanel{
 		
 		leftBottomPanel = new JPanel();
 		mainPanel[EBdLayout.WEST.getValue()].add(leftBottomPanel, BorderLayout.SOUTH);
-		leftBottomPanel.setLayout(new GridLayout(5, 0, 0, 0));
+		leftBottomPanel.setLayout(new GridLayout(5, 0, 5, 5));
 		//leftBottomPanel.setLayout(new GridLayout(ECrudButton.values().length, 0, 0, 0));
 		
 		bookButton = new JButton[ECrudButton.values().length];
@@ -67,9 +69,10 @@ public class JBookManagePane extends JPanel{
 		//BottomSidePanel Constructor
 		///////////////////////////
 		
+		mainPanel[EBdLayout.SOUTH.getValue()].setLayout(new FlowLayout());
 		searchTextField = new TextField();
-		searchTextField.setFont(new Font("고딕", Font.BOLD, 18));
-		searchTextField.setColumns(20);
+		searchTextField.setFont(new Font("고딕", Font.BOLD, 15));
+		searchTextField.setColumns(40);
 		mainPanel[EBdLayout.SOUTH.getValue()].add(searchTextField);
 		
 		searchButton = new JButton("검색");
@@ -84,10 +87,23 @@ public class JBookManagePane extends JPanel{
 		
 		String[] columnNames = Book.expressAtrribute;
 		String[][] rowData = BookManagement.getInstance().getString2Dimension();
-		DefaultTableModel tableModel = new DefaultTableModel(rowData, columnNames);
-		table = new JTable(tableModel);		//열과 행 넣어주기
+		tableModel = new DefaultTableModel(rowData, columnNames);
+		table = new JTable(tableModel);	
+
 		centerScroll = new JScrollPane(table);
 		add(centerScroll, BorderLayout.CENTER);
+		
+		///////////////////////////
+		//TopSidePanel Constructor
+		///////////////////////////
+
+		add(new JLabel("여백의 미"), BorderLayout.NORTH);
+		
+		///////////////////////////
+		//RightSidePanel Constructor
+		///////////////////////////
+		
+		add(new JLabel("여백의 미"), BorderLayout.EAST);
 		
 		//createTemp();
 	}
