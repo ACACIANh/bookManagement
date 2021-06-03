@@ -9,7 +9,7 @@ public class JManagementSwing extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	public JTabbedPane tabPane = null;
-	
+
 	JPanel panel = new JBookManagePane();
 	
 	public JManagementSwing() {

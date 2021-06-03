@@ -5,6 +5,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -12,14 +13,12 @@ import java.awt.GridLayout;
 
 public class JBookManagePane extends JPanel{
 	private static final long serialVersionUID = 1L;
-
+	
 	//Main
 	JPanel[] mainPanel = null;
-	BorderLayout mainBorderLayout = null;
 	
 	//LeftSide
 	JButton[] bookButton = null;	
-	BorderLayout leftBorderLayout = null;	
 	JPanel leftBottomPanel = null;
 	
 	//BottomSide
@@ -30,8 +29,8 @@ public class JBookManagePane extends JPanel{
 	JScrollPane centerScroll = null;
 	
 	public JBookManagePane() {
-		mainBorderLayout = new BorderLayout();
-		setLayout(mainBorderLayout);
+
+		setLayout(new BorderLayout());
 		
 		mainPanel = new JPanel[EBdLayout.values().length];
 		for(int i=0;i<EBdLayout.values().length; ++i) {
@@ -50,15 +49,14 @@ public class JBookManagePane extends JPanel{
 		///////////////////////////
 		
 		//add(mainPanel[EBdLayout.WEST.getValue()], BorderLayout.WEST);
-		leftBorderLayout = new BorderLayout();
-		mainPanel[EBdLayout.WEST.getValue()].setLayout(leftBorderLayout);
+		mainPanel[EBdLayout.WEST.getValue()].setLayout(new BorderLayout());
 		
 		leftBottomPanel = new JPanel();
 		mainPanel[EBdLayout.WEST.getValue()].add(leftBottomPanel, BorderLayout.SOUTH);
 		leftBottomPanel.setLayout(new GridLayout(5, 0, 0, 0));
 		//leftBottomPanel.setLayout(new GridLayout(ECrudButton.values().length, 0, 0, 0));
 		
-		bookButton  = new JButton[ECrudButton.values().length];
+		bookButton = new JButton[ECrudButton.values().length];
 		
 		bookButton[ECrudButton.INSERT.getValue()] = new JButton("도서 추가");
 		leftBottomPanel.add(bookButton[ECrudButton.INSERT.getValue()]);
@@ -72,38 +70,41 @@ public class JBookManagePane extends JPanel{
 		///////////////////////////
 		//BottomSidePanel Constructor
 		///////////////////////////
+		
+		JButton btnNewButton = new JButton("New button");
+		mainPanel[EBdLayout.SOUTH.getValue()].add(btnNewButton);
+	
+		
 	
 		///////////////////////////
 		//CenterSidePanel Constructor
 		///////////////////////////
 		
 		String[] columnNames = { "도서정보", "임시" };
-
-		String[][] rowData = {{ "test", "dd",}, { "test2", "dd2",}};
+		String[][] rowData = {{ "test", "dd",}, { "test2", "dd2",},
+								{ "test", "dd",}, { "test2", "dd2",}};
 		DefaultTableModel tableModel = new DefaultTableModel(rowData, columnNames);
 		table = new JTable(tableModel);		//열과 행 넣어주기
 		centerScroll = new JScrollPane(table);
 		add(centerScroll, BorderLayout.CENTER);
 		
 		/////
-		JButton btnNewButton = new JButton("New button");
-		mainPanel[EBdLayout.SOUTH.getValue()].add(btnNewButton);
 		
-		JPanel panel_2 = new JPanel();
-		add(panel_2, BorderLayout.CENTER);
-	
+
 		
-		JPanel panel_3 = new JPanel();
-		add(panel_3, BorderLayout.NORTH);
 		
-		JButton btnNewButton_3 = new JButton("New button");
-		panel_3.add(btnNewButton_3);
 		
-		JPanel panel_4 = new JPanel();
-		add(panel_4, BorderLayout.EAST);
+		//temp
+		JPanel panel_top = new JPanel();
+		add(panel_top, BorderLayout.NORTH);	
+		JLabel newlabel_top = new JLabel("top side");
+		panel_top.add(newlabel_top);
 		
-		JButton btnNewButton_2 = new JButton("New button");
-		panel_4.add(btnNewButton_2);		
+		JPanel panel_right = new JPanel();
+		add(panel_right, BorderLayout.EAST);
+		JLabel newlabel_right = new JLabel("right side");
+		panel_right.add(newlabel_right);
+		
 	}
 	
 	
