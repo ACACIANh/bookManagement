@@ -65,7 +65,7 @@ public class BookManagement{
 	}
 	
 	public String[][] getString2Dimension(){
-		String[][] returnStr = new String[library.size()][Book.expressAtrribute.length];
+		String[][] returnStr = new String[library.size()][Book.expressAttribute.length];
 		Iterator<Book> iter = library.iterator();
 		for(int i=0; i<library.size(); ++i) {
 			//returnStr[i] = library.at(i).toStringArr();

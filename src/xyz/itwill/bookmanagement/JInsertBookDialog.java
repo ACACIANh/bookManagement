@@ -4,10 +4,14 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import javax.swing.JTextField;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-public class JInsertBookDialog extends JDialog{
+public class JInsertBookDialog extends JDialog implements ActionListener{
 	private static final long serialVersionUID = 1L;
 
 	private JTextField nameField;
@@ -15,15 +19,15 @@ public class JInsertBookDialog extends JDialog{
 	private JTextField publisherField;
 	
 	public JInsertBookDialog() {
-		setTitle("도서 관리 프로그램");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("도서 추가");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 400, 400);
 		setResizable(false);
 		getContentPane().setLayout(null);
 		
 		JLabel nameLabel = new JLabel("제 목 :");
 		nameLabel.setBounds(12, 40, 85, 30);
-		nameLabel.setHorizontalAlignment(JLabel.EAST);
+		nameLabel.setHorizontalAlignment(JLabel.RIGHT);
 		getContentPane().add(nameLabel);
 		
 		nameField = new JTextField();
@@ -33,7 +37,7 @@ public class JInsertBookDialog extends JDialog{
 		
 		JLabel authorLabel = new JLabel("저 자 :");
 		authorLabel.setBounds(12, 80, 85, 30);
-		authorLabel.setHorizontalAlignment(JLabel.EAST);
+		authorLabel.setHorizontalAlignment(JLabel.RIGHT);
 		getContentPane().add(authorLabel);
 		
 		authorField = new JTextField();
@@ -43,7 +47,7 @@ public class JInsertBookDialog extends JDialog{
 		
 		JLabel publisherLabel = new JLabel("출판사 :");
 		publisherLabel.setBounds(12, 120, 85, 30);
-		publisherLabel.setHorizontalAlignment(JLabel.EAST);
+		publisherLabel.setHorizontalAlignment(JLabel.RIGHT);
 		getContentPane().add(publisherLabel);
 		
 		publisherField = new JTextField();
@@ -51,10 +55,20 @@ public class JInsertBookDialog extends JDialog{
 		publisherField.setBounds(102, 120, 280, 30);
 		getContentPane().add(publisherField);
 		
-		
 		JButton insertButton = new JButton("도서 추가");
 		insertButton.setBounds(12, 290, 370, 73);
 		getContentPane().add(insertButton);
+		insertButton.addActionListener(this);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(!MethodManager.getInstance().isPossibleTextField(nameField, EBookAttribute.NAME)
+		||!MethodManager.getInstance().isPossibleTextField(authorField, EBookAttribute.AUTHOR)
+		||!MethodManager.getInstance().isPossibleTextField(publisherField, EBookAttribute.PUBLISHER)){
+			MethodManager.getInstance().somethingWrong(this);
+		}
 	}
 
 }

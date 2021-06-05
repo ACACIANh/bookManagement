@@ -1,5 +1,7 @@
 package xyz.itwill.bookmanagement;
 
+import java.awt.BorderLayout;
+
 public class TestClass {
 	public static void main(String[] args) {
 
@@ -30,6 +32,8 @@ public class TestClass {
 		
 		JManagementSwing ms = new JManagementSwing();
 		ms.setVisible(true);
+		//ms.getContentPane().add(new JInsertBookDialog(), );
+		
 	}
 
 }

@@ -4,8 +4,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -23,6 +26,8 @@ public class JBookManagePane extends JPanel{
 	//LeftSide
 	JButton[] bookButton = null;	
 	JPanel leftBottomPanel = null;
+	
+	JDialog insertDialog = null;
 	
 	//BottomSide
 	TextField searchTextField = null;
@@ -54,10 +59,14 @@ public class JBookManagePane extends JPanel{
 		leftBottomPanel.setLayout(new GridLayout(5, 0, 5, 5));
 		//leftBottomPanel.setLayout(new GridLayout(ECrudButton.values().length, 0, 0, 0));
 		
+		insertDialog = new JInsertBookDialog();
+		
 		bookButton = new JButton[ECrudButton.values().length];
 		
 		bookButton[ECrudButton.INSERT.getValue()] = new JButton("도서 추가");
 		leftBottomPanel.add(bookButton[ECrudButton.INSERT.getValue()]);
+		bookButton[ECrudButton.INSERT.getValue()].addActionListener(
+				e -> insertDialog.setVisible(true));
 		
 		bookButton[ECrudButton.UPDATE.getValue()] = new JButton("도서 수정");
 		leftBottomPanel.add(bookButton[ECrudButton.UPDATE.getValue()]);
@@ -85,7 +94,7 @@ public class JBookManagePane extends JPanel{
 		//CenterSidePanel Constructor
 		///////////////////////////
 		
-		String[] columnNames = Book.expressAtrribute;
+		String[] columnNames = Book.expressAttribute;
 		String[][] rowData = BookManagement.getInstance().getString2Dimension();
 		tableModel = new DefaultTableModel(rowData, columnNames);
 		table = new JTable(tableModel);	

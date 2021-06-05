@@ -3,7 +3,7 @@ package xyz.itwill.bookmanagement;
 import java.io.Serializable;
 
 public class Book implements Serializable {	
-	public static String[] expressAtrribute = {"고유 번호", "제목", "저자", "출판사"};
+	public static String[] expressAttribute = {"고유 번호", "제목", "저자", "출판사"};
 	
 	private static final long serialVersionUID = 1060401278850448591L;
 	private static int seedId = 0;
