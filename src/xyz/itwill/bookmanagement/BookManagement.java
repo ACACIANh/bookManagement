@@ -37,9 +37,29 @@ public class BookManagement{
 		}
 		return returnBook;
 	}
+	
+	public Book searchBookCategoryName(String categoryName) {
+		Book returnBook = library.stream().filter(
+				book -> book.getCategoryName().equals(categoryName)).findAny().orElse(null);
+		if (returnBook != null) {
+			System.out.println("검색 되었습니다.");
+		} else {
+			System.out.println(categoryName + " 을 찾을 수 없습니다.");
+		}
+		return returnBook;
+	}
+
 
 	public void removeBook(String name) {
 		Book removeBook = searchBook(name);
+		if (removeBook != null) {
+			library.remove(removeBook);
+			System.out.println("삭제 완료");
+		}
+	}
+	
+	public void removeBookCategoryName(String categoryName) {
+		Book removeBook = searchBookCategoryName(categoryName);
 		if (removeBook != null) {
 			library.remove(removeBook);
 			System.out.println("삭제 완료");

@@ -57,7 +57,7 @@ public class MethodManager {
 	}
 	
 	public void somethingWrong(Component component) {
-		JOptionPane.showMessageDialog(component, "무언가 잘못되었다."
+		JOptionPane.showMessageDialog(component, "무언가 잘못되었다. 예외처리를 보아라"
 				,"에러",JOptionPane.ERROR_MESSAGE);
 	}
 

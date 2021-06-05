@@ -3,6 +3,9 @@ package xyz.itwill.bookmanagement;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import javax.swing.JButton;
@@ -38,6 +41,7 @@ public class JBookManagePane extends JPanel{
 	JScrollPane centerScroll = null;
 	JTable table = null;
 	DefaultTableModel tableModel = null;
+	int selectRowIndex = -1;
 	
 	public JBookManagePane() {
 		setLayout(new BorderLayout());
@@ -100,6 +104,10 @@ public class JBookManagePane extends JPanel{
 		String[][] rowData = BookManagement.getInstance().getString2Dimension();
 		tableModel = new DefaultTableModel(rowData, columnNames);
 		table = new JTable(tableModel);	
+		table.getSelectionModel().addListSelectionListener(
+			//모든 클릭 이벤트 발생.. 예외처리해줄것
+			e -> setLowIndex(table.getSelectedRow()));
+		
 
 		centerScroll = new JScrollPane(table);
 		add(centerScroll, BorderLayout.CENTER);
@@ -153,12 +161,35 @@ public class JBookManagePane extends JPanel{
 		String[] columnNames = Book.expressAttribute;
 		String[][] rowData = BookManagement.getInstance().getString2Dimension();
 		tableModel = new DefaultTableModel(rowData, columnNames);	
+
+		int index = selectRowIndex;
 		table.setModel(tableModel);
+		if(tableModel.getRowCount() <= index) {
+			--index;
+		}
+		setLowIndex(index);
+		//포커스 해제 해주기
+		if(index != -1) {
+			table.setRowSelectionInterval(index, index);	
+		}
 		table.validate();
 	}
 	
 	void deleteColumn() {
-		//선택된 컬럼 인덱스를 들고와서 삭제
+		if(-1 == selectRowIndex) {
+			MethodManager.getInstance().somethingWrong(this);
+			return;
+		}
+		String categoryName = (String)table.getValueAt(selectRowIndex, 0);
+		BookManagement.getInstance().removeBookCategoryName(categoryName);
+		validateTable();
+		//삭제하고 인덱스 초기화
+	}
+	
+	public void setLowIndex(int index) {
+		//두번씩 호출됨 고칠것.
+		selectRowIndex = index;
+		System.out.println("클릭된 인덱스 = " + index);
 	}
 	
 
