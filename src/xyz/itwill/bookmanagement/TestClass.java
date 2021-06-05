@@ -22,8 +22,9 @@ public class TestClass {
 //		bm.insertBook(book3); // 한번 넣은 데이터 재시도
 		bm.insertBook(book4); // 속성은 같지만 고유 ID로 비교하므로 다른객체판단
 		for(int i=0; i<50; ++i) {
-			bm.insertBook(new Book(400, "그리고 아무도 없었다", "애거사 크리스티", "해문출판사"));
+			//bm.insertBook(new Book(400, "그리고 아무도 없었다", "애거사 크리스티", "해문출판사"));
 		}
+		
 
 //		System.out.println("================");
 //		

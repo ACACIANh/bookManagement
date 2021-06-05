@@ -59,7 +59,7 @@ public class JBookManagePane extends JPanel{
 		leftBottomPanel.setLayout(new GridLayout(5, 0, 5, 5));
 		//leftBottomPanel.setLayout(new GridLayout(ECrudButton.values().length, 0, 0, 0));
 		
-		insertDialog = new JInsertBookDialog();
+		insertDialog = new JInsertBookDialog(this);
 		
 		bookButton = new JButton[ECrudButton.values().length];
 		
@@ -73,6 +73,8 @@ public class JBookManagePane extends JPanel{
 		
 		bookButton[ECrudButton.REMOVE.getValue()] = new JButton("도서 삭제");
 		leftBottomPanel.add(bookButton[ECrudButton.REMOVE.getValue()]);
+		bookButton[ECrudButton.REMOVE.getValue()].addActionListener(
+				e -> deleteColumn());
 		
 		///////////////////////////
 		//BottomSidePanel Constructor
@@ -146,7 +148,18 @@ public class JBookManagePane extends JPanel{
 		panel_bottom.add(newlabel_bottom);
 	}
 	
+	public void validateTable() {
+		//테이블만 바꾸게 개선해보자
+		String[] columnNames = Book.expressAttribute;
+		String[][] rowData = BookManagement.getInstance().getString2Dimension();
+		tableModel = new DefaultTableModel(rowData, columnNames);	
+		table.setModel(tableModel);
+		table.validate();
+	}
 	
+	void deleteColumn() {
+		//선택된 컬럼 인덱스를 들고와서 삭제
+	}
 	
 
 }

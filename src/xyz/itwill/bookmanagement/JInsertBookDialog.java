@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class JInsertBookDialog extends JDialog implements ActionListener{
 	private static final long serialVersionUID = 1L;
@@ -17,8 +18,13 @@ public class JInsertBookDialog extends JDialog implements ActionListener{
 	private JTextField nameField;
 	private JTextField authorField;
 	private JTextField publisherField;
+	private JTextField categoryField;
 	
-	public JInsertBookDialog() {
+	private JBookManagePane parentPanel;
+	
+	public JInsertBookDialog(JBookManagePane parent) {
+		this.parentPanel = parent;
+		
 		setTitle("도서 추가");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 400, 400);
@@ -55,6 +61,16 @@ public class JInsertBookDialog extends JDialog implements ActionListener{
 		publisherField.setBounds(102, 120, 280, 30);
 		getContentPane().add(publisherField);
 		
+		JLabel categoryLabel = new JLabel("분 류 :");
+		categoryLabel.setBounds(12, 160, 85, 30);
+		categoryLabel.setHorizontalAlignment(JLabel.RIGHT);
+		getContentPane().add(categoryLabel);
+		
+		categoryField = new JTextField();
+		categoryField .setColumns(10);
+		categoryField .setBounds(102, 160, 280, 30);
+		getContentPane().add(categoryField);
+		
 		JButton insertButton = new JButton("도서 추가");
 		insertButton.setBounds(12, 290, 370, 73);
 		getContentPane().add(insertButton);
@@ -69,6 +85,27 @@ public class JInsertBookDialog extends JDialog implements ActionListener{
 		||!MethodManager.getInstance().isPossibleTextField(publisherField, EBookAttribute.PUBLISHER)){
 			MethodManager.getInstance().somethingWrong(this);
 		}
+		
+		int category = Integer.parseInt(categoryField.getText());
+		Book book = new Book(category,
+				nameField.getText(),
+				authorField.getText(),
+				publisherField.getText()
+				);
+		BookManagement bm = BookManagement.getInstance();
+		bm.insertBook(book);
+		JOptionPane.showMessageDialog(this, "추가 되었습니다."
+				,"알림", JOptionPane.INFORMATION_MESSAGE);
+		//this.setVisible(false);
+		parentPanel.validateTable();
+		clearField();
+	}
+	
+	void clearField() {
+		nameField.setText("");
+		authorField.setText("");
+		publisherField.setText("");
+		categoryField.setText("");
 	}
 
 }
