@@ -10,13 +10,11 @@ public enum EBdLayout {
 	CENTER(4);
 
 	private final int value;
+	private EBdLayout(int value) {this.value = value;}
 
-	EBdLayout(int value) {this.value = value;}
+	public static int size() {return values().length;}
 	public int getValue() {return value;}
-	public int getTrans(String name) {
-		return value;
-	}
-	
+
 	public static String getTransStr(int index) {
 		String returnStr = null;
 		EBdLayout value = values()[index];

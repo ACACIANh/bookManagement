@@ -10,7 +10,7 @@ public class JManagementSwing extends JFrame {
 	
 	public JTabbedPane tabPane = null;
 
-	JPanel panel = null;
+	private JPanel panel = null;
 	
 	public JManagementSwing() {
 		setTitle("도서 관리 프로그램");

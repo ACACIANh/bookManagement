@@ -1,20 +1,19 @@
 package xyz.acacian.swing;
 
-
-import xyz.acacian.enums.EBookAttribute;
-import xyz.acacian.managers.BookManagement;
-import xyz.acacian.managers.MethodManager;
-import xyz.acacian.objects.Book;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+import xyz.acacian.enums.EBookAttribute;
+import xyz.acacian.managers.BookManager;
+import xyz.acacian.managers.MethodManager;
+import xyz.acacian.objects.Book;
 
 public class JInsertBookDialog extends JDialog implements ActionListener{
 	private static final long serialVersionUID = 1L;
@@ -96,16 +95,16 @@ public class JInsertBookDialog extends JDialog implements ActionListener{
 				authorField.getText(),
 				publisherField.getText()
 				);
-		BookManagement bm = BookManagement.getInstance();
+		BookManager bm = BookManager.getInstance();
 		bm.insertBook(book);
 		JOptionPane.showMessageDialog(this, "추가 되었습니다."
 				,"알림", JOptionPane.INFORMATION_MESSAGE);
 		//this.setVisible(false);
-		parentPanel.validateTable();
 		clearField();
+		parentPanel.validateTable();
 	}
 	
-	void clearField() {
+	private void clearField() {
 		nameField.setText("");
 		authorField.setText("");
 		publisherField.setText("");

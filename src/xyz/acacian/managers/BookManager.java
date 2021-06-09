@@ -5,18 +5,20 @@ import java.util.LinkedHashSet;
 
 import xyz.acacian.objects.Book;
 
-public class BookManagement{
-	private static BookManagement instance = null;
+public enum BookManager{
+	INSTANCE;
+	//private static BookManager instance = null;
 	private LinkedHashSet<Book> library = null; // 추후에 Collection으로 변경
 
-	public static BookManagement getInstance() {
-		if(instance == null) {
-			instance = new BookManagement();
-		}
-		return instance;
+	public static BookManager getInstance() {
+//		if(instance == null) {
+//			instance = new BookManager();
+//		}
+//		return instance;
+		return INSTANCE;
 	}
 	
-	private BookManagement() {
+	private BookManager() {
 		this.library = new LinkedHashSet<Book>();
 	}
 	

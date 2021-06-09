@@ -7,17 +7,21 @@ import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class MethodManager {
-	private static MethodManager instance = null;
+public enum MethodManager {
+	INSTANCE;
+	
+	//private static MethodManager instance = null;
 	
 	private MethodManager() {
+		
 	}
 	
 	public static MethodManager getInstance() {
-		if(instance == null) {
-			instance = new MethodManager();			
-		}
-		return instance;
+//		if(instance == null) {
+//			instance = new MethodManager();			
+//		}
+//		return instance;
+		return INSTANCE;
 	}
 	
 	public boolean isPossibleTextField(JTextField field, EBookAttribute attriute) {
@@ -59,7 +63,7 @@ public class MethodManager {
 	}
 	
 	public void somethingWrong(Component component) {
-		JOptionPane.showMessageDialog(component, "무언가 잘못되었다. 예외처리를 보아라"
+		JOptionPane.showMessageDialog(component, "Check Something Wrong"
 				,"에러",JOptionPane.ERROR_MESSAGE);
 	}
 

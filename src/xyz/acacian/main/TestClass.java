@@ -1,6 +1,6 @@
 package xyz.acacian.main;
 
-import xyz.acacian.managers.BookManagement;
+import xyz.acacian.managers.BookManager;
 import xyz.acacian.objects.Book;
 import xyz.acacian.swing.JManagementSwing;
 
@@ -9,7 +9,7 @@ import xyz.acacian.swing.JManagementSwing;
 public class TestClass {
 	public static void main(String[] args) {
 
-		BookManagement bm = BookManagement.getInstance();
+		BookManager bm = BookManager.getInstance();
 		
 		Book book0 = new Book(100, "첫번째책", "첫번째저자", "첫번째출판사");
 		Book book1 = new Book(800, "Java의정석", "남궁성", "도우출판");
