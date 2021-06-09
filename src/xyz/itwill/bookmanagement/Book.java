@@ -1,6 +1,7 @@
 package xyz.itwill.bookmanagement;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Book implements Serializable {	
 	public static String[] expressAttribute = {"고유 번호", "제목", "저자", "출판사"};
@@ -10,7 +11,7 @@ public class Book implements Serializable {
 
 	private int id = 0;
 	private int category = 0;
-	private boolean loanState = false;
+	
 	private String categoryName = null;
 	private String name = null;
 	private String author = null;
@@ -18,11 +19,11 @@ public class Book implements Serializable {
 
 	public Book() {
 		super();
+		generateId();
 	}
 
 	public Book(int category, String name, String author, String publisher) {
 		this();
-		generateId();
 		this.category = category;
 		this.name = name;
 		this.author = author;
@@ -46,14 +47,6 @@ public class Book implements Serializable {
 	public void setCategory(int category) {
 		this.category = category;
 		generateCategoryName();
-	}
-
-	public boolean isLoanState() {
-		return loanState;
-	}
-
-	public void setLoanState(boolean loanState) {
-		this.loanState = loanState;
 	}
 
 	public String getCategoryName() {
@@ -98,16 +91,18 @@ public class Book implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return categoryName.hashCode();
+		return name.hashCode();
 	}
 
+	
 	@Override
-	public boolean equals(Object obj) {
-		if (!(obj instanceof Book)) {
+	public boolean equals(Object obj) {	
+		if(this == obj)
+			return true;
+		if(null == obj || getClass() != obj.getClass()) 
 			return false;
-		}
-		Book book = (Book) obj;
-		return categoryName.equals(book.categoryName);
+		Book book = (Book)obj;
+		return Objects.equals(categoryName, book.categoryName);
 	}
 
 	@Override
