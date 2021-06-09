@@ -1,6 +1,6 @@
 package xyz.acacian.enums;
 
-//완전 잘못하고 하고 있는거같아 db연결ㅠ
+// String으로 바꾸자.
 public enum EBookAttribute {
 	ID(0),
 	CATEGORY(1),

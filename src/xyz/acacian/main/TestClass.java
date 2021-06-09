@@ -32,7 +32,7 @@ public class TestClass {
 //		System.out.println("================");
 //		
 //		bm.showBook(bm.searchBook("토비의 스프링"));
-//		bm.showAll();
+		bm.showAll();
 		
 		JManagementSwing ms = new JManagementSwing();
 		ms.setVisible(true);

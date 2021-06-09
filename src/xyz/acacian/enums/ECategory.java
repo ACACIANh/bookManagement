@@ -12,60 +12,65 @@ package xyz.acacian.enums;
 //800  Literature		문학
 //900  History			역사
 
+//이것도 String으로 바꿔야될꺼같은데.
 public enum ECategory {
-	GENERAL_WORCKS(0),			
-	PHILOSOPHY(100),		
-	RELIGION(200),
-	SOCIAL_SCIENCES(300),
-	NATURAL_SCIENCES(400),
-	TECHNOLOGY(500),
-	ARTS(600),
-	LANGUAGE(700),
-	LITERATURE(800),
-	HISTORY(900);	
+	GENERAL_WORCKS("000"),			
+	PHILOSOPHY("100"),		
+	RELIGION("200"),
+	SOCIAL_SCIENCES("300"),
+	NATURAL_SCIENCES("400"),
+	TECHNOLOGY("500"),
+	ARTS("600"),
+	LANGUAGE("700"),
+	LITERATURE("800"),
+	HISTORY("900");	
 	
-	private final int value;
-	private ECategory(int value) {this.value = value;}
+	private final String value;
+	private ECategory(String value) {this.value = value;}
 	
 	public static int size() {return values().length;}
-	public int getValue() {return value;}
+	public String getValue() {return value;}
 	
-	@Override 
-	public String toString() {
+	public String toStringKor() {
 		String returnStr = null;
 		switch (value) {
-		case 0:
+		case "000":
 			returnStr = "총류";
 			break;
-		case 100:
+		case "100":
 			returnStr = "철학";
 			break;
-		case 200:
+		case "200":
 			returnStr = "종교";
 			break;
-		case 300:
+		case "300":
 			returnStr = "통계학";
 			break;
-		case 400:
+		case "400":
 			returnStr = "수학";
 			break;
-		case 500:
+		case "500":
 			returnStr = "의학";
 			break;
-		case 600:
+		case "600":
 			returnStr = "예술";
 			break;
-		case 700:
+		case "700":
 			returnStr = "언어";
 			break;
-		case 800:
+		case "800":
 			returnStr = "문학";
 			break;
-		case 900:
+		case "900":
 			returnStr = "역사";
 			break;
 		}
 		return returnStr;
+	}
+	
+	@Override 
+	public String toString() {
+		return value;
 	}
 }
 

@@ -77,7 +77,7 @@ public class Book implements Serializable {
 	}
 
 	private void generateId() {
-		//필요 없으면 뺍시당
+		//이거 잘못된거같아 ㅠ
 		++seedId;
 		id = seedId;
 	}
@@ -124,9 +124,9 @@ public class Book implements Serializable {
 
 	private void generateCategoryName() {
 		this.categoryName = null;
-		int generateNumber = id % 100 + this.category.getValue();
+		String generateNumber = category.getValue().substring(0,2) + (id % 100);
 		int endIndex = 1;
-		String generateName = Integer.toString(generateNumber) + "-" + name.substring(0, endIndex)
+		String generateName = generateNumber + "-" + name.substring(0, endIndex)
 				+ author.substring(0, endIndex) + publisher.substring(0, endIndex);
 		this.categoryName = generateName;
 	}
@@ -150,7 +150,8 @@ public class Book implements Serializable {
 	public String toString() {
 		String blank = " | ";
 		return blank + this.categoryName + blank + this.name + blank + this.author + blank + this.publisher + blank
-				+ Integer.toString(category.getValue()) + category.toString() + blank;
+				+ category.toStringKor
+				() + blank;
 	}
 	
 	public String[] toStringArr() {
