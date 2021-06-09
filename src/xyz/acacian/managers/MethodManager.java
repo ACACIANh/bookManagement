@@ -10,20 +10,14 @@ import javax.swing.JTextField;
 public enum MethodManager {
 	INSTANCE;
 	
-	//private static MethodManager instance = null;
-	
-	private MethodManager() {
-		
-	}
-	
 	public static MethodManager getInstance() {
-//		if(instance == null) {
-//			instance = new MethodManager();			
-//		}
-//		return instance;
 		return INSTANCE;
 	}
+
+	private MethodManager() {	
 	
+	}
+		
 	public boolean isPossibleTextField(JTextField field, EBookAttribute attriute) {
 		String text = field.getText();
 		if(text.equals("")) {

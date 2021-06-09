@@ -3,20 +3,17 @@ package xyz.acacian.managers;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
+import xyz.acacian.enums.ECategory;
 import xyz.acacian.objects.Book;
 
 public enum BookManager{
 	INSTANCE;
-	//private static BookManager instance = null;
-	private LinkedHashSet<Book> library = null; // 추후에 Collection으로 변경
-
+	
 	public static BookManager getInstance() {
-//		if(instance == null) {
-//			instance = new BookManager();
-//		}
-//		return instance;
 		return INSTANCE;
 	}
+	
+	private LinkedHashSet<Book> library = null; // 추후에 Collection으로 변경
 	
 	private BookManager() {
 		this.library = new LinkedHashSet<Book>();
@@ -70,7 +67,7 @@ public enum BookManager{
 		}
 	}
 
-	public void updateBook(String name, int categoryNumber) {
+	public void updateBook(String name, ECategory categoryNumber) {
 		Book updateBook = searchBook(name);
 		if (updateBook != null) {
 			updateBook.setCategory(categoryNumber);

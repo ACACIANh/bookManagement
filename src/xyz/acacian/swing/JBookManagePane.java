@@ -2,7 +2,6 @@ package xyz.acacian.swing;
 
 import xyz.acacian.enums.ECrudButton;
 import xyz.acacian.enums.EBdLayout;
-import xyz.acacian.enums.EBookAttribute;
 import xyz.acacian.managers.BookManager;
 import xyz.acacian.managers.MethodManager;
 import xyz.acacian.managers.UtilManager;
@@ -109,10 +108,9 @@ public class JBookManagePane extends JPanel{
 		tableModel = new DefaultTableModel(rowData, columnNames);
 		table = new JTable(tableModel);	
 		table.getSelectionModel().addListSelectionListener(
-			//모든 클릭 이벤트 발생.. 개선할것
-			e -> setLowIndex(table.getSelectedRow()));
+			e -> {if(!e.getValueIsAdjusting())
+						setLowIndex(table.getSelectedRow());});
 		
-
 		centerScroll = new JScrollPane(table);
 		add(centerScroll, BorderLayout.CENTER);
 		
@@ -174,7 +172,7 @@ public class JBookManagePane extends JPanel{
 		if(UtilManager.OUT_OF_INDEX != index) {
 			table.setRowSelectionInterval(index, index);	
 		}
-		table.validate();
+		table.validate();				//추후 개선할것
 	}
 	
 	private void deleteColumn() {

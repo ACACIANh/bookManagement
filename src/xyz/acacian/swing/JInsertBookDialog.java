@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import xyz.acacian.enums.EBookAttribute;
+import xyz.acacian.enums.ECategory;
 import xyz.acacian.managers.BookManager;
 import xyz.acacian.managers.MethodManager;
 import xyz.acacian.objects.Book;
@@ -89,12 +90,15 @@ public class JInsertBookDialog extends JDialog implements ActionListener{
 			MethodManager.getInstance().somethingWrong(this);
 		}
 		
-		int category = Integer.parseInt(categoryField.getText());
-		Book book = new Book(category,
-				nameField.getText(),
-				authorField.getText(),
-				publisherField.getText()
-				);
+		ECategory category = ECategory.GENERAL_WORCKS;
+//		Book book = Book.Builder().
+//		name(nameField.getText()).
+//		author(authorField.getText()).
+//		publisher(publisherField.getText()).
+//		category(category).build();
+		Book book = new Book(nameField.getText(), authorField.getText(),
+				publisherField.getText(), category);
+		
 		BookManager bm = BookManager.getInstance();
 		bm.insertBook(book);
 		JOptionPane.showMessageDialog(this, "추가 되었습니다."
