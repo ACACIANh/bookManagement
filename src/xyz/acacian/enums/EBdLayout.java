@@ -1,4 +1,4 @@
-package xyz.itwill.bookmanagement;
+package xyz.acacian.enums;
 
 import java.awt.BorderLayout;
 

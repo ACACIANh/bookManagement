@@ -1,13 +1,17 @@
-package xyz.itwill.bookmanagement;
+package xyz.acacian.swing;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 
-import javax.swing.JTextField;
+import xyz.acacian.enums.EBookAttribute;
+import xyz.acacian.managers.BookManagement;
+import xyz.acacian.managers.MethodManager;
+import xyz.acacian.objects.Book;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

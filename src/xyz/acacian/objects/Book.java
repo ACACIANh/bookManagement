@@ -1,4 +1,4 @@
-package xyz.itwill.bookmanagement;
+package xyz.acacian.objects;
 
 import java.io.Serializable;
 import java.util.Objects;

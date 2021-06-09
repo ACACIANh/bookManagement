@@ -1,7 +1,9 @@
-package xyz.itwill.bookmanagement;
+package xyz.acacian.managers;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+
+import xyz.acacian.objects.Book;
 
 public class BookManagement{
 	private static BookManagement instance = null;

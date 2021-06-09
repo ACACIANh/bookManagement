@@ -1,4 +1,4 @@
-package xyz.itwill.bookmanagement;
+package xyz.acacian.swing;
 
 import javax.swing.JDialog;
 

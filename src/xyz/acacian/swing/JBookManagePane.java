@@ -1,17 +1,18 @@
-package xyz.itwill.bookmanagement;
+package xyz.acacian.swing;
+
+import xyz.acacian.enums.*;
+import xyz.acacian.managers.BookManagement;
+import xyz.acacian.managers.MethodManager;
+import xyz.acacian.objects.Book;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

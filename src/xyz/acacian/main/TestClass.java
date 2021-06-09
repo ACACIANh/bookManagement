@@ -1,4 +1,8 @@
-package xyz.itwill.bookmanagement;
+package xyz.acacian.main;
+
+import xyz.acacian.managers.BookManagement;
+import xyz.acacian.objects.Book;
+import xyz.acacian.swing.JManagementSwing;
 
 //import java.awt.BorderLayout;
 

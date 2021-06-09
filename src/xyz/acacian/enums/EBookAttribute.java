@@ -1,4 +1,4 @@
-package xyz.itwill.bookmanagement;
+package xyz.acacian.enums;
 
 //private int id = 0;
 //private int category = 0;
