@@ -6,9 +6,11 @@ import java.util.Objects;
 import xyz.acacian.enums.ECategory;
 
 public class Book implements Serializable {
+
+	private static final long serialVersionUID = -7961318480811635722L;
+
 	public static String[] expressAttribute = {"고유 번호", "제목", "저자", "출판사"};
 	
-	private static final long serialVersionUIDzz = 1060401278850448591L;
 	private static int seedId = 0;
 
 	private int id = 0;
