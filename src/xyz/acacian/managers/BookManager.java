@@ -38,6 +38,16 @@ public enum BookManager{
 		}
 		return returnBook;
 	}
+	public Book searchBook(int id) {
+		Book returnBook = library.stream().filter(book -> book.getId() == (id)).findAny().orElse(null);
+		if (returnBook != null) {
+			System.out.println("검색 되었습니다.");
+		} else {
+			System.out.println(id + " 을 찾을 수 없습니다.");
+		}
+		return returnBook;
+	}
+	
 	
 	public Book searchBookCategoryName(String categoryName) {
 		Book returnBook = library.stream().filter(
@@ -60,7 +70,16 @@ public enum BookManager{
 	}
 	
 	public void removeBookCategoryName(String categoryName) {
+		//안씁니다.
 		Book removeBook = searchBookCategoryName(categoryName);
+		if (removeBook != null) {
+			library.remove(removeBook);
+			System.out.println("삭제 완료");
+		}
+	}
+	
+	public void removeBookNumber(int num) {
+		Book removeBook = searchBook(num);
 		if (removeBook != null) {
 			library.remove(removeBook);
 			System.out.println("삭제 완료");

@@ -3,13 +3,21 @@ package xyz.acacian.objects;
 import java.io.Serializable;
 import java.util.Objects;
 
+import xyz.acacian.enums.EBookAttribute;
 import xyz.acacian.enums.ECategory;
 
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = -7961318480811635722L;
 
-	public static String[] expressAttribute = {"고유 번호", "제목", "저자", "출판사"};
+	//public static String[] expressAttribute = {"고유 번호","고유 번호", "제목", "저자", "출판사"};
+	
+	public static String[] expressAttribute = {EBookAttribute.ID.getValue(),
+											   EBookAttribute.NAME.getValue(),
+											   EBookAttribute.AUTHOR.getValue(),
+											   EBookAttribute.PUBLISHER.getValue(),
+											   EBookAttribute.CATEGORY.getValue()};
+	
 	
 	private static int seedId = 0;
 
@@ -77,9 +85,13 @@ public class Book implements Serializable {
 	public int getId() {
 		return id;
 	}
+	
+	public static int getSeedId() {
+		return seedId;
+	}
 
 	private void generateId() {
-		//이거 잘못된거같아 ㅠ
+		//이거 잘못된거같아 ㅠ ㅇㅇ 잘못됬어 ㄹㄹ
 		++seedId;
 		id = seedId;
 	}
@@ -157,8 +169,7 @@ public class Book implements Serializable {
 	}
 	
 	public String[] toStringArr() {
-		//{"고유 번호", "제목", "저자", "출판사"};
-		String[] returnStr = {categoryName, name, author, publisher};
+		String[] returnStr = {Integer.toString(id), name, author, publisher, category.toString()};
 		return returnStr;
 	}
 }

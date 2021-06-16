@@ -78,14 +78,12 @@ public class JBookManagePane extends JPanel{
 		bookButton[ECrudButton.INSERT.getValue()] = new JButton("INSERT");
 		leftBottomPanel.add(bookButton[ECrudButton.INSERT.getValue()]);
 		bookButton[ECrudButton.INSERT.getValue()].addActionListener(
-				e -> {insertUpdateDialog.setVisible(true); 
-				((JInsertUpdateBookDialog)insertUpdateDialog).radioInsertSelect(true); });
+				e -> insertButton());
 		
 		bookButton[ECrudButton.UPDATE.getValue()] = new JButton("UPDATE");
 		leftBottomPanel.add(bookButton[ECrudButton.UPDATE.getValue()]);
 		bookButton[ECrudButton.UPDATE.getValue()].addActionListener(
-				e -> {insertUpdateDialog.setVisible(true); 
-				((JInsertUpdateBookDialog)insertUpdateDialog).radioInsertSelect(false); });
+				e -> updateButton());
 		
 		bookButton[ECrudButton.REMOVE.getValue()] = new JButton("DELETE");
 		leftBottomPanel.add(bookButton[ECrudButton.REMOVE.getValue()]);
@@ -205,21 +203,57 @@ public class JBookManagePane extends JPanel{
 		table.validate();				//추후 개선할것
 	}
 	
+	private void insertButton() {
+		insertUpdateDialog.setVisible(true); 
+		((JInsertUpdateBookDialog)insertUpdateDialog).radioInsertSelect(true); 
+		((JInsertUpdateBookDialog)insertUpdateDialog).clearField();
+	}
+	
+	private void updateButton() {
+		if(UtilManager.OUT_OF_INDEX == selectRowIndex) {
+			MethodManager.getInstance().notSelectColumn(this);
+			return;
+		}		
+		insertUpdateDialog.setVisible(true); 
+		((JInsertUpdateBookDialog)insertUpdateDialog).radioInsertSelect(false);	
+		int id = Integer.parseInt(
+				table.getValueAt(selectRowIndex, 0).toString());
+		((JInsertUpdateBookDialog)insertUpdateDialog).setUpdateField(
+				BookManager.getInstance().searchBook(id));
+	}
+	
 	private void deleteColumn() {
 		if(UtilManager.OUT_OF_INDEX == selectRowIndex) {
-			MethodManager.getInstance().somethingWrong(this);
+			MethodManager.getInstance().notSelectColumn(this);
 			return;
 		}
-		String categoryName = (String)table.getValueAt(selectRowIndex, 0);
-		BookManager.getInstance().removeBookCategoryName(categoryName);
+		insertUpdateDialog.setVisible(false); 
+		int id = Integer.parseInt(
+				table.getValueAt(selectRowIndex, 0).toString());
+		BookManager.getInstance().removeBookNumber(id);
 		validateTable();
 		//삭제하고 인덱스 초기화
 	}
 	
 	public void setLowIndex(int index) {
 		//두번씩 호출됨 고칠것.
-		selectRowIndex = index;
+		if(UtilManager.OUT_OF_INDEX == index) {
+			//임시로..
+			return;
+		}
+		selectRowIndex = index;		
 		System.out.println("클릭된 인덱스 = " + index);
+		
+//		Object obj = table.getValueAt(index, 0);
+//		if(null != obj) {
+//			System.out.println("클릭된 책" + obj.toString());
+//		}
+		
+		int id = Integer.parseInt(
+				table.getValueAt(selectRowIndex, 0).toString());
+		Book book = BookManager.getInstance().searchBook(id);
+		System.out.println("클릭된 책 번호 = " + book.getId());
+		System.out.println("클릭된 책 이름 = " + book.getName());
 	}
 	
 

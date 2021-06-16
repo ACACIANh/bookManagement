@@ -60,5 +60,9 @@ public enum MethodManager {
 		JOptionPane.showMessageDialog(component, "Check Something Wrong"
 				,"에러",JOptionPane.ERROR_MESSAGE);
 	}
-
+	
+	public void notSelectColumn(Component component) {
+		JOptionPane.showMessageDialog(component, "Select Column First"
+				,"에러",JOptionPane.ERROR_MESSAGE);
+	}
 }

@@ -1,18 +1,11 @@
 package xyz.acacian.swing;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import xyz.acacian.enums.EBookAttribute;
@@ -22,7 +15,7 @@ import xyz.acacian.managers.MethodManager;
 import xyz.acacian.objects.Book;
 import javax.swing.JRadioButton;
 
-public class JInsertUpdateBookDialog extends JDialog implements ActionListener{
+public class JInsertUpdateBookDialog extends JDialog{
 	private static final long serialVersionUID = 1L;
 	
 	private static final int START_ = 60;
@@ -49,7 +42,6 @@ public class JInsertUpdateBookDialog extends JDialog implements ActionListener{
 		getContentPane().setLayout(null);
 		
 		
-
 		JLabel numberLabel = new JLabel("번 호:");
 		numberLabel.setBounds(12, START_+INTERVAL_*0, 73, 30);
 		numberLabel.setHorizontalAlignment(JLabel.RIGHT);
@@ -100,11 +92,15 @@ public class JInsertUpdateBookDialog extends JDialog implements ActionListener{
 		categoryComboBox.setBounds(90, START_+INTERVAL_*4, 280, 30);
 		getContentPane().add(categoryComboBox);
 		
-		JButton insertButton = new JButton("INSERT / UPDATE");
-		insertButton.setBounds(12, START_+INTERVAL_*5, 370, 73);
-		getContentPane().add(insertButton);
-		insertButton.addActionListener(this);
-		
+		JButton insertUpdateButton = new JButton("INSERT / UPDATE");
+		insertUpdateButton.setBounds(12, START_+INTERVAL_*5, 370, 73);
+		getContentPane().add(insertUpdateButton);
+		//insertUpdateButton.addActionListener(
+		//		e -> insertRadio.isSelected() ? insertButton() : updateButton() );
+		// 무슨차이일까..? ㅠㅅㅠ
+		insertUpdateButton.addActionListener(
+				e -> {	if(insertRadio.isSelected()) { insertButton(); }
+						else { updateButton();}	});
 		
 		insertRadio = new JRadioButton("INSERT");
 		insertRadio.setBounds(63, 19, 121, 23);
@@ -127,38 +123,48 @@ public class JInsertUpdateBookDialog extends JDialog implements ActionListener{
 		insertRadio.setSelected(check);
 		updateRadio.setSelected(!check);
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+	
+	public void clearField() {
+		numberField.setText(Integer.toString(Book.getSeedId()+1));
+		nameField.setText("");
+		authorField.setText("");
+		publisherField.setText("");
+		categoryComboBox.setSelectedIndex(0);
+	}
+	
+	public void setUpdateField(Book book) {
+		numberField.setText(Integer.toString(book.getId()));
+		nameField.setText(book.getName());
+		authorField.setText(book.getAuthor());
+		publisherField.setText(book.getPublisher());
+		categoryComboBox.setSelectedItem(book.getCategory());
+	}
+	
+	public void insertButton() {
 		if(!MethodManager.getInstance().isPossibleTextField(nameField, EBookAttribute.NAME)
-		||!MethodManager.getInstance().isPossibleTextField(authorField, EBookAttribute.AUTHOR)
-		||!MethodManager.getInstance().isPossibleTextField(publisherField, EBookAttribute.PUBLISHER)){
+			||!MethodManager.getInstance().isPossibleTextField(authorField, EBookAttribute.AUTHOR)
+			||!MethodManager.getInstance().isPossibleTextField(publisherField, EBookAttribute.PUBLISHER)){
 			MethodManager.getInstance().somethingWrong(this);
-		}
-		
-		ECategory category = ECategory.GENERAL_WORCKS;
-//		Book book = Book.Builder().
-//		name(nameField.getText()).
-//		author(authorField.getText()).
-//		publisher(publisherField.getText()).
-//		category(category).build();
+			//수정사항
+			}
+				
 		Book book = new Book(nameField.getText(), authorField.getText(),
-				publisherField.getText(), category);
+				publisherField.getText(), (ECategory)categoryComboBox.getSelectedItem());
 		
 		BookManager bm = BookManager.getInstance();
 		bm.insertBook(book);
 		JOptionPane.showMessageDialog(this, "추가 되었습니다."
 				,"알림", JOptionPane.INFORMATION_MESSAGE);
 		//this.setVisible(false);
-		clearField();
+		clearField();	
 		parentPanel.validateTable();
 	}
 	
-	private void clearField() {
-		nameField.setText("");
-		authorField.setText("");
-		publisherField.setText("");
-		categoryComboBox.setSelectedIndex(0);;
+	public void updateButton() {
+		
 	}
+
+
+
+
 }
