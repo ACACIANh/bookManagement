@@ -2,6 +2,7 @@ package xyz.acacian.swing;
 
 import xyz.acacian.enums.ECrudButton;
 import xyz.acacian.enums.EBdLayout;
+import xyz.acacian.enums.EBookAttribute;
 import xyz.acacian.managers.BookManager;
 import xyz.acacian.managers.MethodManager;
 import xyz.acacian.managers.UtilManager;
@@ -21,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.TextField;
+import javax.swing.JComboBox;
 
 
 public class JBookManagePane extends JPanel{
@@ -36,7 +38,10 @@ public class JBookManagePane extends JPanel{
 	private JDialog insertDialog = null;
 	
 	//BottomSide
+	private EBookAttribute searchAttribute = EBookAttribute.NAME;
+	private JComboBox searchComboBox = null;
 	private TextField searchTextField = null;
+	private JButton searchAllButton = null; 
 	private JButton searchButton = null; 
 	private JButton cancleButton = null; 
 	
@@ -70,15 +75,15 @@ public class JBookManagePane extends JPanel{
 
 		bookButton = new JButton[ECrudButton.size()];
 		
-		bookButton[ECrudButton.INSERT.getValue()] = new JButton("도서 추가");
+		bookButton[ECrudButton.INSERT.getValue()] = new JButton("INSERT");
 		leftBottomPanel.add(bookButton[ECrudButton.INSERT.getValue()]);
 		bookButton[ECrudButton.INSERT.getValue()].addActionListener(
 				e -> insertDialog.setVisible(true));
 		
-		bookButton[ECrudButton.UPDATE.getValue()] = new JButton("도서 수정");
+		bookButton[ECrudButton.UPDATE.getValue()] = new JButton("UPDATE");
 		leftBottomPanel.add(bookButton[ECrudButton.UPDATE.getValue()]);
 		
-		bookButton[ECrudButton.REMOVE.getValue()] = new JButton("도서 삭제");
+		bookButton[ECrudButton.REMOVE.getValue()] = new JButton("DELETE");
 		leftBottomPanel.add(bookButton[ECrudButton.REMOVE.getValue()]);
 		bookButton[ECrudButton.REMOVE.getValue()].addActionListener(
 				e -> deleteColumn());
@@ -88,25 +93,46 @@ public class JBookManagePane extends JPanel{
 		///////////////////////////
 		
 		mainPanel[EBdLayout.SOUTH.getValue()].setLayout(new FlowLayout());
+		
+		searchAllButton = new JButton("SearchAll");
+		mainPanel[EBdLayout.SOUTH.getValue()].add(searchAllButton);
+		
+		searchComboBox = new JComboBox(EBookAttribute.values());
+		searchComboBox.setSelectedItem(searchAttribute);
+		searchComboBox.addActionListener( 
+				e -> { JComboBox box = (JComboBox)e.getSource();
+						searchAttribute = (EBookAttribute)box.getSelectedItem(); 
+						System.out.println(searchAttribute); });		
+		mainPanel[EBdLayout.SOUTH.getValue()].add(searchComboBox);
+		
 		searchTextField = new TextField();
 		searchTextField.setFont(new Font("고딕", Font.BOLD, 15));
-		searchTextField.setColumns(40);
+		searchTextField.setColumns(30);
 		mainPanel[EBdLayout.SOUTH.getValue()].add(searchTextField);
 		
-		searchButton = new JButton("검색");
+
+		
+		searchButton = new JButton("Search");
 		mainPanel[EBdLayout.SOUTH.getValue()].add(searchButton);
 		
-		cancleButton = new JButton("취소");
+		cancleButton = new JButton("Cancle");
 		mainPanel[EBdLayout.SOUTH.getValue()].add(cancleButton);
 	
 		///////////////////////////
 		//CenterSidePanel Constructor
 		///////////////////////////
 		
+		// 싹 개선
 		String[] columnNames = Book.expressAttribute;
 		String[][] rowData = BookManager.getInstance().getString2Dimension();
 		tableModel = new DefaultTableModel(rowData, columnNames);
-		table = new JTable(tableModel);	
+		table = new JTable(tableModel) {
+			   @Override
+			    public boolean isCellEditable(int row, int column) {
+			        return false;
+			    }
+		};	
+		table.getTableHeader().setReorderingAllowed(false);
 		table.getSelectionModel().addListSelectionListener(
 			e -> {if(!e.getValueIsAdjusting())
 						setLowIndex(table.getSelectedRow());});

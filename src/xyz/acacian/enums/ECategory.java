@@ -12,7 +12,6 @@ package xyz.acacian.enums;
 //800  Literature		문학
 //900  History			역사
 
-//이것도 String으로 바꿔야될꺼같은데.
 public enum ECategory {
 	GENERAL_WORCKS("000"),			
 	PHILOSOPHY("100"),		

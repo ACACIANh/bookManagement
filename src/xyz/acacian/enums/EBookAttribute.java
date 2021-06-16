@@ -2,20 +2,17 @@ package xyz.acacian.enums;
 
 // String으로 바꾸자.
 public enum EBookAttribute {
-	ID(0),
-	CATEGORY(1),
-	NAME(2),
-	AUTHOR(3),
-	PUBLISHER(4);
+	ID("고유번호"),
+	CATEGORY("분류"),
+	NAME("제목"),
+	AUTHOR("저자"),
+	PUBLISHER("출판사")
+	;
 
-	private final int value;
-	private EBookAttribute(int value) {this.value = value;}
+	private final String value;
+	private EBookAttribute(String value) {this.value = value;}
 	
 	public static int size() {return values().length;}
-	public int getValue() {return value;}
-	public int getTrans(String name) {
-		return value;
-	}
-	
+	public String getValue() {return value;}
 	
 }
