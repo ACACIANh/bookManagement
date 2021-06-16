@@ -1,13 +1,18 @@
 package xyz.acacian.swing;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import xyz.acacian.enums.EBookAttribute;
@@ -15,70 +20,112 @@ import xyz.acacian.enums.ECategory;
 import xyz.acacian.managers.BookManager;
 import xyz.acacian.managers.MethodManager;
 import xyz.acacian.objects.Book;
+import javax.swing.JRadioButton;
 
-public class JInsertBookDialog extends JDialog implements ActionListener{
+public class JInsertUpdateBookDialog extends JDialog implements ActionListener{
 	private static final long serialVersionUID = 1L;
+	
+	private static final int START_ = 60;
+	private static final int INTERVAL_ = 70;
 
+	private JTextField numberField;
 	private JTextField nameField;
 	private JTextField authorField;
 	private JTextField publisherField;
-	private JTextField categoryField;
+	private JComboBox categoryComboBox;
+	
+	private JRadioButton insertRadio;
+	private JRadioButton updateRadio;
 	
 	private JBookManagePane parentPanel;
 	
-	public JInsertBookDialog(JBookManagePane parent) {
+	public JInsertUpdateBookDialog(JBookManagePane parent) {
 		this.parentPanel = parent;
 		
-		setTitle("도서 추가");
+		setTitle("도서 INSERT / UPDATE");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 400, 400);
+		setBounds(100, 100, 500, 600);
 		setResizable(false);
 		getContentPane().setLayout(null);
 		
+		
+
+		JLabel numberLabel = new JLabel("번 호:");
+		numberLabel.setBounds(12, START_+INTERVAL_*0, 73, 30);
+		numberLabel.setHorizontalAlignment(JLabel.RIGHT);
+		getContentPane().add(numberLabel);
+		
+		numberField = new JTextField();
+		numberField.setBounds(90, START_+INTERVAL_*0, 280, 30);
+		getContentPane().add(numberField);
+		numberField.setColumns(10);
+		numberField.setEnabled(false);
+		
 		JLabel nameLabel = new JLabel("제 목 :");
-		nameLabel.setBounds(12, 40, 85, 30);
+		nameLabel.setBounds(12, START_+INTERVAL_*1, 73, 30);
 		nameLabel.setHorizontalAlignment(JLabel.RIGHT);
 		getContentPane().add(nameLabel);
 		
 		nameField = new JTextField();
-		nameField.setBounds(102, 40, 280, 30);
+		nameField.setBounds(90, START_+INTERVAL_*1, 280, 30);
 		getContentPane().add(nameField);
 		nameField.setColumns(10);
 		
 		JLabel authorLabel = new JLabel("저 자 :");
-		authorLabel.setBounds(12, 80, 85, 30);
+		authorLabel.setBounds(12, START_+INTERVAL_*2, 73, 30);
 		authorLabel.setHorizontalAlignment(JLabel.RIGHT);
 		getContentPane().add(authorLabel);
 		
 		authorField = new JTextField();
 		authorField.setColumns(10);
-		authorField.setBounds(102, 80, 280, 30);
+		authorField.setBounds(90, START_+INTERVAL_*2, 280, 30);
 		getContentPane().add(authorField);	
 		
 		JLabel publisherLabel = new JLabel("출판사 :");
-		publisherLabel.setBounds(12, 120, 85, 30);
+		publisherLabel.setBounds(12, START_+INTERVAL_*3, 73, 30);
 		publisherLabel.setHorizontalAlignment(JLabel.RIGHT);
 		getContentPane().add(publisherLabel);
 		
 		publisherField = new JTextField();
 		publisherField.setColumns(10);
-		publisherField.setBounds(102, 120, 280, 30);
+		publisherField.setBounds(90, START_+INTERVAL_*3, 280, 30);
 		getContentPane().add(publisherField);
 		
 		JLabel categoryLabel = new JLabel("분 류 :");
-		categoryLabel.setBounds(12, 160, 85, 30);
+		categoryLabel.setBounds(12, START_+INTERVAL_*4, 73, 30);
 		categoryLabel.setHorizontalAlignment(JLabel.RIGHT);
 		getContentPane().add(categoryLabel);
 		
-		categoryField = new JTextField();
-		categoryField .setColumns(10);
-		categoryField .setBounds(102, 160, 280, 30);
-		getContentPane().add(categoryField);
+		categoryComboBox = new JComboBox(ECategory.values());
+		categoryComboBox.setBounds(90, START_+INTERVAL_*4, 280, 30);
+		getContentPane().add(categoryComboBox);
 		
-		JButton insertButton = new JButton("도서 추가");
-		insertButton.setBounds(12, 290, 370, 73);
+		JButton insertButton = new JButton("INSERT / UPDATE");
+		insertButton.setBounds(12, START_+INTERVAL_*5, 370, 73);
 		getContentPane().add(insertButton);
 		insertButton.addActionListener(this);
+		
+		
+		insertRadio = new JRadioButton("INSERT");
+		insertRadio.setBounds(63, 19, 121, 23);
+		//insertRadio.setSelected(true);
+		insertRadio.setEnabled(false);
+//		insertRadio.addActionListener(
+//				e->radioInsertSelect(true));
+		getContentPane().add(insertRadio);
+		
+		updateRadio = new JRadioButton("UPDATE");
+		updateRadio.setBounds(211, 19, 121, 23);
+		updateRadio.setEnabled(false);
+//		updateRadio.addActionListener(
+//				e->radioInsertSelect(false));
+		getContentPane().add(updateRadio);
+				
+	}
+	
+	public void radioInsertSelect(boolean check) {
+		insertRadio.setSelected(check);
+		updateRadio.setSelected(!check);
 	}
 
 	@Override
@@ -112,7 +159,6 @@ public class JInsertBookDialog extends JDialog implements ActionListener{
 		nameField.setText("");
 		authorField.setText("");
 		publisherField.setText("");
-		categoryField.setText("");
+		categoryComboBox.setSelectedIndex(0);;
 	}
-
 }

@@ -35,7 +35,7 @@ public class JBookManagePane extends JPanel{
 	private JButton[] bookButton = null;	
 	private JPanel leftBottomPanel = null;
 	
-	private JDialog insertDialog = null;
+	private JDialog insertUpdateDialog = null;
 	
 	//BottomSide
 	private EBookAttribute searchAttribute = EBookAttribute.NAME;
@@ -71,17 +71,21 @@ public class JBookManagePane extends JPanel{
 		leftBottomPanel.setLayout(new GridLayout(5, 0, 5, 5));
 		//leftBottomPanel.setLayout(new GridLayout(ECrudButton.values().length, 0, 0, 0));
 		
-		insertDialog = new JInsertBookDialog(this);
+		insertUpdateDialog = new JInsertUpdateBookDialog(this);
 
 		bookButton = new JButton[ECrudButton.size()];
 		
 		bookButton[ECrudButton.INSERT.getValue()] = new JButton("INSERT");
 		leftBottomPanel.add(bookButton[ECrudButton.INSERT.getValue()]);
 		bookButton[ECrudButton.INSERT.getValue()].addActionListener(
-				e -> insertDialog.setVisible(true));
+				e -> {insertUpdateDialog.setVisible(true); 
+				((JInsertUpdateBookDialog)insertUpdateDialog).radioInsertSelect(true); });
 		
 		bookButton[ECrudButton.UPDATE.getValue()] = new JButton("UPDATE");
 		leftBottomPanel.add(bookButton[ECrudButton.UPDATE.getValue()]);
+		bookButton[ECrudButton.UPDATE.getValue()].addActionListener(
+				e -> {insertUpdateDialog.setVisible(true); 
+				((JInsertUpdateBookDialog)insertUpdateDialog).radioInsertSelect(false); });
 		
 		bookButton[ECrudButton.REMOVE.getValue()] = new JButton("DELETE");
 		leftBottomPanel.add(bookButton[ECrudButton.REMOVE.getValue()]);
