@@ -111,8 +111,7 @@ public class JBookManagePane extends JPanel{
 		searchComboBox.setSelectedItem(searchAttribute);
 		searchComboBox.addActionListener( 
 				e -> { JComboBox box = (JComboBox)e.getSource();
-						searchAttribute = (EBookAttribute)box.getSelectedItem(); 
-						System.out.println(searchAttribute); });		
+						searchAttribute = (EBookAttribute)box.getSelectedItem(); });		
 		mainPanel[EBdLayout.SOUTH.getValue()].add(searchComboBox);
 		
 		searchTextField = new TextField();

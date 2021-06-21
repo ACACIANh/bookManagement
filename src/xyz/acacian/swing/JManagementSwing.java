@@ -35,6 +35,8 @@ public class JManagementSwing extends JFrame {
 		tabPane.addTab("档辑 包府", panel[1]);
 		tabPane.addTab("雀盔 包府", panel[2]);
 		
+		tabPane.setSelectedIndex(2);	
+		//tabPane.setEnabled(false);
 	}
 	
 

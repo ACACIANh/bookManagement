@@ -105,8 +105,7 @@ private static final long serialVersionUID = 1L;
 		searchComboBox.setSelectedItem(searchAttribute);
 		searchComboBox.addActionListener( 
 				e -> { JComboBox box = (JComboBox)e.getSource();
-						searchAttribute = (EMemberAttribute)box.getSelectedItem(); 
-						System.out.println(searchAttribute); });		
+						searchAttribute = (EMemberAttribute)box.getSelectedItem(); });		
 		mainPanel[EBdLayout.SOUTH.getValue()].add(searchComboBox);
 		
 		searchTextField = new TextField();

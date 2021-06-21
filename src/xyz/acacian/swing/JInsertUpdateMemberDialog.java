@@ -10,12 +10,11 @@ import javax.swing.JTextField;
 
 import xyz.acacian.database.BookDAO;
 import xyz.acacian.database.BookDTO;
+import xyz.acacian.database.MemberDAO;
 import xyz.acacian.database.MemberDTO;
-import xyz.acacian.enums.EBookAttribute;
 import xyz.acacian.enums.ECategory;
-import xyz.acacian.managers.BookManager;
-import xyz.acacian.managers.MethodManager;
-import xyz.acacian.objects.Book;
+import xyz.acacian.enums.ELevel;
+
 import javax.swing.JRadioButton;
 
 
@@ -24,13 +23,18 @@ public class JInsertUpdateMemberDialog extends JDialog{
 	private static final long serialVersionUID = 1L;
 	
 	private static final int START_ = 60;
-	private static final int INTERVAL_ = 70;
+	private static final int INTERVAL_ = 40;
 
 	private JTextField numberField;
+
+	private JComboBox levelComboBox;
+	
+	private JTextField idField;
+	private JTextField pwField;
 	private JTextField nameField;
-	private JTextField authorField;
-	private JTextField publisherField;
-	private JComboBox categoryComboBox;
+
+	private JTextField phoneField;
+	private JTextField birthdayField;
 	
 	private JRadioButton insertRadio;
 	private JRadioButton updateRadio;
@@ -40,7 +44,7 @@ public class JInsertUpdateMemberDialog extends JDialog{
 	public JInsertUpdateMemberDialog(JMemberManagePane parent) {
 		this.parentPanel = parent;
 		
-		setTitle("도서 INSERT / UPDATE");
+		setTitle("회원 INSERT / UPDATE");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 600);
 		setResizable(false);
@@ -58,47 +62,69 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		numberField.setColumns(10);
 		numberField.setEnabled(false);
 		
-		JLabel nameLabel = new JLabel("제 목 :");
-		nameLabel.setBounds(12, START_+INTERVAL_*1, 73, 30);
+		JLabel levelLabel = new JLabel("등 급 :");
+		levelLabel.setBounds(12, START_+INTERVAL_*1, 73, 30);
+		levelLabel.setHorizontalAlignment(JLabel.RIGHT);
+		getContentPane().add(levelLabel);
+		
+		levelComboBox = new JComboBox(ELevel.values());
+		levelComboBox.setBounds(90, START_+INTERVAL_*1, 280, 30);
+		getContentPane().add(levelComboBox);
+		
+
+		JLabel idLabel = new JLabel("ID :");
+		idLabel.setBounds(12, START_+INTERVAL_*2, 73, 30);
+		idLabel.setHorizontalAlignment(JLabel.RIGHT);
+		getContentPane().add(idLabel);
+		
+		idField = new JTextField();
+		idField.setColumns(10);
+		idField.setBounds(90, START_+INTERVAL_*2, 280, 30);
+		getContentPane().add(idField);	
+		
+		JLabel pwLabel = new JLabel("PW :");
+		pwLabel.setBounds(12, START_+INTERVAL_*3, 73, 30);
+		pwLabel.setHorizontalAlignment(JLabel.RIGHT);
+		getContentPane().add(pwLabel);
+		
+		pwField = new JTextField();
+		pwField.setColumns(10);
+		pwField.setBounds(90, START_+INTERVAL_*3, 280, 30);
+		getContentPane().add(pwField);
+		
+		JLabel nameLabel = new JLabel("이 름 :");
+		nameLabel.setBounds(12, START_+INTERVAL_*4, 73, 30);
 		nameLabel.setHorizontalAlignment(JLabel.RIGHT);
 		getContentPane().add(nameLabel);
 		
 		nameField = new JTextField();
-		nameField.setBounds(90, START_+INTERVAL_*1, 280, 30);
+		nameField.setBounds(90, START_+INTERVAL_*4, 280, 30);
 		getContentPane().add(nameField);
 		nameField.setColumns(10);
 		
-		JLabel authorLabel = new JLabel("저 자 :");
-		authorLabel.setBounds(12, START_+INTERVAL_*2, 73, 30);
-		authorLabel.setHorizontalAlignment(JLabel.RIGHT);
-		getContentPane().add(authorLabel);
+		JLabel phoneLabel = new JLabel("전화번호 :");
+		phoneLabel.setBounds(12, START_+INTERVAL_*5, 73, 30);
+		phoneLabel.setHorizontalAlignment(JLabel.RIGHT);
+		getContentPane().add(phoneLabel);
 		
-		authorField = new JTextField();
-		authorField.setColumns(10);
-		authorField.setBounds(90, START_+INTERVAL_*2, 280, 30);
-		getContentPane().add(authorField);	
+		phoneField = new JTextField();
+		phoneField.setBounds(90, START_+INTERVAL_*5, 280, 30);
+		getContentPane().add(phoneField);
+		phoneField.setColumns(10);
 		
-		JLabel publisherLabel = new JLabel("출판사 :");
-		publisherLabel.setBounds(12, START_+INTERVAL_*3, 73, 30);
-		publisherLabel.setHorizontalAlignment(JLabel.RIGHT);
-		getContentPane().add(publisherLabel);
+		JLabel birthdayLabel = new JLabel("생년월일 :");
+		birthdayLabel.setBounds(12, START_+INTERVAL_*6, 73, 30);
+		birthdayLabel.setHorizontalAlignment(JLabel.RIGHT);
+		getContentPane().add(birthdayLabel);
 		
-		publisherField = new JTextField();
-		publisherField.setColumns(10);
-		publisherField.setBounds(90, START_+INTERVAL_*3, 280, 30);
-		getContentPane().add(publisherField);
+		birthdayField = new JTextField();
+		birthdayField.setBounds(90, START_+INTERVAL_*6, 280, 30);
+		getContentPane().add(birthdayField);
+		birthdayField.setColumns(10);
 		
-		JLabel categoryLabel = new JLabel("분 류 :");
-		categoryLabel.setBounds(12, START_+INTERVAL_*4, 73, 30);
-		categoryLabel.setHorizontalAlignment(JLabel.RIGHT);
-		getContentPane().add(categoryLabel);
-		
-		categoryComboBox = new JComboBox(ECategory.values());
-		categoryComboBox.setBounds(90, START_+INTERVAL_*4, 280, 30);
-		getContentPane().add(categoryComboBox);
 		
 		JButton insertUpdateButton = new JButton("INSERT / UPDATE");
-		insertUpdateButton.setBounds(12, START_+INTERVAL_*5, 370, 73);
+		insertUpdateButton.setBounds(12, START_+INTERVAL_*7, 370, 73);
 		getContentPane().add(insertUpdateButton);
 		//insertUpdateButton.addActionListener(
 		//		e -> insertRadio.isSelected() ? insertButton() : updateButton() );
@@ -130,13 +156,13 @@ public class JInsertUpdateMemberDialog extends JDialog{
 	}
 	
 	public void clearField() {
-		String latestNum = Integer.toString(BookDAO.getDAO().getLatestNum()+1);
+		String latestNum = Integer.toString(MemberDAO.getDAO().getLatestNum()+1);
 		numberField.setText(latestNum);
 		//numberField.setText(Integer.toString(Book.getSeedId()+1));
 		nameField.setText("");
-		authorField.setText("");
-		publisherField.setText("");
-		categoryComboBox.setSelectedIndex(0);
+		idField.setText("");
+		pwField.setText("");
+		levelComboBox.setSelectedIndex(0);
 	}
 	
 	public void setUpdateField(MemberDTO member) {
@@ -152,9 +178,9 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		BookDTO book = new BookDTO(
 				Integer.parseInt(numberField.getText()),
 				nameField.getText(), 
-				authorField.getText(),
-				publisherField.getText(), 
-				((ECategory)categoryComboBox.getSelectedItem()).getValue());
+				idField.getText(),
+				pwField.getText(), 
+				((ECategory)levelComboBox.getSelectedItem()).getValue());
 
 //		Book book = new Book(nameField.getText(), authorField.getText(),
 //				publisherField.getText(), (ECategory)categoryComboBox.getSelectedItem());
@@ -178,9 +204,9 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		BookDTO book = new BookDTO(
 				Integer.parseInt(numberField.getText()),
 				nameField.getText(), 
-				authorField.getText(),
-				publisherField.getText(), 
-				((ECategory)categoryComboBox.getSelectedItem()).getValue());
+				idField.getText(),
+				pwField.getText(), 
+				((ECategory)levelComboBox.getSelectedItem()).getValue());
 
 		BookDAO.getDAO().updateBook(book);
 		JOptionPane.showMessageDialog(this, "갱신 되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
@@ -195,16 +221,16 @@ public class JInsertUpdateMemberDialog extends JDialog{
 			nameField.requestFocus();
 			return false;
 		}
-		strTemp = authorField.getText();	
+		strTemp = idField.getText();	
 		if(strTemp.equals("")) {
 			JOptionPane.showMessageDialog(this, "저자를 입력해주세요.");
-			authorField.requestFocus();
+			idField.requestFocus();
 			return false;
 		}
-		strTemp = publisherField.getText();	
+		strTemp = pwField.getText();	
 		if(strTemp.equals("")) {
 			JOptionPane.showMessageDialog(this, "출판사를 입력해주세요.");
-			publisherField.requestFocus();
+			pwField.requestFocus();
 			return false;
 		}
 		return true;
