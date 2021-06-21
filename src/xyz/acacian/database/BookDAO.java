@@ -182,7 +182,7 @@ public class BookDAO extends JdbcDAO{
 			}
 			
 		} catch(SQLException e) {
-			System.out.println("[에러]selectAllBookList() 메소드 SQL 오류 " + e.getMessage());
+			System.out.println("[에러]getLatestNum() 메소드 SQL 오류 " + e.getMessage());
 		} finally {
 			close(con, pstmt, rs);
 		}

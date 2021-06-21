@@ -1,16 +1,17 @@
 package xyz.acacian.enums;
 
-// String으로 바꾸자.
-public enum EBookAttribute {
+public enum EMemberAttribute {
 	NUM(0), 
-	NAME(1), 
-	AUTHOR(2), 
-	PUBLISHER(3), 
-	CATEGORY(4)
+	ID_LEVEL(1), 
+	ID(2), 
+	PW(3), 
+	NAME(4), 
+	PHONE(5), 
+	BIRTHDAY(6)
 	;
 
 	private final int value;
-	private EBookAttribute(int value) {
+	private EMemberAttribute(int value) {
 		this.value = value;
 	}
 
@@ -27,17 +28,23 @@ public enum EBookAttribute {
 		case NUM:
 			str = "번호";
 			break;
+		case ID_LEVEL:
+			str = "레벨";
+			break;
+		case ID:
+			str = "아이디";
+			break;
+		case PW:
+			str = "비밀번호";
+			break;
 		case NAME:
-			str = "제목";
+			str = "이름";
 			break;
-		case AUTHOR:
-			str = "저자";
+		case PHONE:
+			str = "전화번호";
 			break;
-		case PUBLISHER:
-			str = "출판사";
-			break;
-		case CATEGORY:
-			str = "분류";
+		case BIRTHDAY:
+			str = "생일";
 			break;
 		}
 		return str;
@@ -49,17 +56,23 @@ public enum EBookAttribute {
 		case NUM:
 			str = "num";
 			break;
+		case ID_LEVEL:
+			str = "id_level";
+			break;
+		case ID:
+			str = "id";
+			break;
+		case PW:
+			str = "pw";
+			break;
 		case NAME:
 			str = "name";
 			break;
-		case AUTHOR:
-			str = "author";
+		case PHONE:
+			str = "phone";
 			break;
-		case PUBLISHER:
-			str = "publisher";
-			break;
-		case CATEGORY:
-			str = "category";
+		case BIRTHDAY:
+			str = "birthday";
 			break;
 		}
 		return str;
