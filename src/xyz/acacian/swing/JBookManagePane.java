@@ -55,7 +55,7 @@ public class JBookManagePane extends JPanel{
 	private JScrollPane centerScroll = null;
 	private JTable table = null;
 	private DefaultTableModel tableModel = null;
-	private int selectRowIndex = -1;
+	//private int selectRowIndex = -1;
 	
 	public JBookManagePane() {
 		setLayout(new BorderLayout());
@@ -123,6 +123,8 @@ public class JBookManagePane extends JPanel{
 
 		
 		searchButton = new JButton("Search");
+		searchButton.addActionListener(
+				e->searchBook());
 		mainPanel[EBdLayout.SOUTH.getValue()].add(searchButton);
 		
 //		cancleButton = new JButton("Cancle");
@@ -184,7 +186,7 @@ public class JBookManagePane extends JPanel{
 //		((JInsertUpdateBookDialog)insertUpdateDialog).setUpdateField(
 //				BookManager.getInstance().searchBook(id));
 		((JInsertUpdateBookDialog)insertUpdateDialog)
-									.setUpdateField(test());
+									.setUpdateField(getSelectBook());
 	}
 	
 	private void deleteColumn() {
@@ -196,6 +198,7 @@ public class JBookManagePane extends JPanel{
 		int num = Integer.parseInt(
 				table.getValueAt(table.getSelectedRow(), 0).toString());		
 		BookDAO.getDAO().deleteBook(num);
+		JOptionPane.showMessageDialog(this, "삭제 되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
 		displayAllBook();
 	}
 	
@@ -243,7 +246,7 @@ public class JBookManagePane extends JPanel{
 //		System.out.println("클릭된 책 이름 = " + book.getName());
 	}
 	
-	public BookDTO test() {
+	public BookDTO getSelectBook() {
 		int index = table.getSelectedRow();	
 		BookDTO returnBook = new BookDTO();
 		returnBook.setNum(
@@ -253,6 +256,31 @@ public class JBookManagePane extends JPanel{
 		returnBook.setPublisher(table.getValueAt(index, EBookAttribute.PUBLISHER.getValue()).toString());
 		returnBook.setCategory(table.getValueAt(index, EBookAttribute.CATEGORY.getValue()).toString());
         return returnBook;
+	}
+	
+	private void searchBook() {
+		List<BookDTO> bookList = BookDAO.getDAO().selectBookList(searchTextField.getText(), searchAttribute);
+		displayBooks(bookList);
+	}
+	
+	private void displayBooks(List<BookDTO> bookList) {
+		if(bookList.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "저장된 책이 없습니다.");
+			return;
+		}		
+		DefaultTableModel model = (DefaultTableModel)table.getModel();
+		for(int i=model.getRowCount(); i>0; --i) {
+			model.removeRow(0);
+		}
+		for(BookDTO book:bookList) {
+			Vector<Object> rowData = new Vector<Object>();
+			rowData.add(book.getNum());
+			rowData.add(book.getName());
+			rowData.add(book.getAuthor());
+			rowData.add(book.getPublisher());
+			rowData.add(book.getCategory());
+			model.addRow(rowData);
+		}
 	}
 
 }

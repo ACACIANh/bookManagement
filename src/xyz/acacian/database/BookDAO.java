@@ -129,6 +129,56 @@ public class BookDAO extends JdbcDAO{
 		return bookList;
 	}
 	
+	public List<BookDTO> selectBookList(String data, EBookAttribute type){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<BookDTO> bookList = new ArrayList<BookDTO>();
+		try {
+			con = getConnection();
+			
+			String sql = "select * from bookmanager ";
+			switch(type) {
+			case NUM:
+				sql += "where num = ?";
+				break;
+			case NAME:
+				sql += "where name = ?";
+				break;
+			case AUTHOR:
+				sql += "where author = ?";
+				break;
+			case PUBLISHER:
+				sql += "where publisher = ?";
+				break;
+			case CATEGORY:
+				sql += "where category = ?";
+				break;
+			}
+			sql += " order by num";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, data);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BookDTO book = new BookDTO();
+				book.setNum(rs.getInt("num"));
+				book.setName(rs.getString("name"));
+				book.setAuthor(rs.getString("author"));
+				book.setPublisher(rs.getString("publisher"));
+				book.setCategory(rs.getString("category"));
+				bookList.add(book);
+			}
+		} catch(SQLException e) {
+			System.out.println("[에러]selectBookList() 메소드 SQL 오류 " + e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return bookList;
+	}
+	
 	
 	public int getLatestNum(){
 		Connection con = null;
