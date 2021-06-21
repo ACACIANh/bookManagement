@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import xyz.acacian.enums.ECategory;
 import xyz.acacian.objects.Book;
 
+@Deprecated
 public enum BookManager {
     INSTANCE;
 

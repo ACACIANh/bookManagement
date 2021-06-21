@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import xyz.acacian.managers.LoginManager;
+
 public class JManagementSwing extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
@@ -25,11 +27,18 @@ public class JManagementSwing extends JFrame {
 	}
 	
 	public void createTab() {
-		tabPane = new JTabbedPane();
+		LoginManager.getInstance().setTabbPane(new JTabbedPane());
+	
+		LoginManager.getInstance().setBookManagePane(new JBookManagePane());
+		LoginManager.getInstance().setMemberMangePane(new JMemberManagePane());
+		
+		tabPane =LoginManager.getInstance().getTabbPane();
 		
 		panel = new JPanel[3];
-		panel[1] = new JBookManagePane();
-		panel[2] = new JMemberManagePane();
+		
+		panel[1] = LoginManager.getInstance().getBookManagePane();
+		panel[2] = LoginManager.getInstance().getMemberMangePane();
+			
 		
 		tabPane.addTab("로그인창", new JLabel("로그인창"));
 		tabPane.addTab("도서 관리", panel[1]);
