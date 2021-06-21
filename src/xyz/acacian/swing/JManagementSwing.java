@@ -32,7 +32,7 @@ public class JManagementSwing extends JFrame {
 		LoginManager.getInstance().setBookManagePane(new JBookManagePane());
 		LoginManager.getInstance().setMemberMangePane(new JMemberManagePane());
 		
-		tabPane =LoginManager.getInstance().getTabbPane();
+		tabPane = LoginManager.getInstance().getTabbPane();
 		
 		panel = new JPanel[3];
 		
@@ -45,7 +45,7 @@ public class JManagementSwing extends JFrame {
 		tabPane.addTab("회원 관리", panel[2]);
 		
 		tabPane.setSelectedIndex(2);	
-		//tabPane.setEnabled(false);
+
 	}
 	
 

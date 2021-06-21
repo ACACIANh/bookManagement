@@ -1,5 +1,6 @@
 package xyz.acacian.main;
 
+import xyz.acacian.managers.LoginManager;
 //import xyz.acacian.enums.ECategory;
 //import xyz.acacian.managers.BookManager;
 //import xyz.acacian.objects.Book;
@@ -36,6 +37,11 @@ public class TestClass {
 		
 		JManagementSwing ms = new JManagementSwing();
 		ms.setVisible(true);
+
+		LoginManager.getInstance().Login("gkehdrn", "gkehdrn");
+		//LoginManager.getInstance().Login("gkehdrn2", "gkehdrn2");
+		//LoginManager.getInstance().Login("test", "test");
+		//LoginManager.getInstance().viewLevel();
 		//ms.getContentPane().add(new JInsertBookDialog(), );
 		
 	}

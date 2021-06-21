@@ -283,5 +283,11 @@ public class JBookManagePane extends JPanel{
 			model.addRow(rowData);
 		}
 	}
+	
+	public void viewLevelButton(boolean on) {
+		for(int i=0; i<ECrudButton.size(); ++i) {
+			bookButton[i].setEnabled(on);
+		}
+	}
 
 }

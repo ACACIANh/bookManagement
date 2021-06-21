@@ -266,6 +266,11 @@ private static final long serialVersionUID = 1L;
 		}
 	}
 
-	
+	public void viewLevelButton(boolean on) {
+		for(int i=0; i<ECrudButton.size(); ++i) {
+			memberButton[i].setEnabled(on);
+		}
+		memberButton[ECrudButton.INSERT.getValue()].setEnabled(true);
+	}
 	
 }

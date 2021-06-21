@@ -13,6 +13,16 @@ public enum ELevel {
 	public static int size() {return values().length;}
 	public int getValue() {return value;}
 	
+	public static ELevel getParse(int num) {
+		var iter = ELevel.values();
+		for(var element : iter) {
+			if(element.getValue() == num) {
+				return element;
+			}
+		}
+		return null;
+	}
+	
 	public static String getStringStatic(int num) {
 		String returnStr = null;
 		switch (num) {
