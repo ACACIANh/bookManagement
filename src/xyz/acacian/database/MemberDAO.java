@@ -9,40 +9,34 @@ import java.util.List;
 
 import xyz.acacian.enums.EBookAttribute;
 
-public class BookDAO extends JdbcDAO{
-//	public static String[] expressAttribute = {EBookAttribute.NUM.getString(),
-//											   EBookAttribute.NAME.getString(),
-//											   EBookAttribute.AUTHOR.getString(),
-//											   EBookAttribute.PUBLISHER.getString(),
-//											   EBookAttribute.CATEGORY.getString()};
-	
-	private static BookDAO instance;
+public class MemberDAO extends JdbcDAO {
+	private static MemberDAO instance;
 	
 	static {
-		instance = new BookDAO();
+		instance = new MemberDAO();
 	}
 	
-	public static BookDAO getDAO() {
+	public static MemberDAO getDAO() {
 		return instance;
 	}
 	
-	private BookDAO() {	
+	private MemberDAO() {	
 	}
 	
-	public int insertBook(BookDTO book) {
+	public int insertMember(MemberDTO book) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int rows = 0;
 		try {
 			con = getConnection();
 			
-			String sql = "insert into bookmanager values (BOOK_NUM.NEXTVAL, ?, ?, ?, ?)";
+			String sql = "insert into membermanager values (MEMBER_NUM.NEXTVAL, ?, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
 			//pstmt.setInt(1, book.getNum()); //시퀀스로 대체
 			pstmt.setString(1, book.getName());
-			pstmt.setString(2, book.getAuthor());
-			pstmt.setString(3, book.getPublisher());
-			pstmt.setString(4, book.getCategory());
+//			pstmt.setString(2, book.getAuthor());
+//			pstmt.setString(3, book.getPublisher());
+//			pstmt.setString(4, book.getCategory());
 			
 			rows = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -188,6 +182,4 @@ public class BookDAO extends JdbcDAO{
 		}
 		return latestNum;
 	}
-	
-
 }

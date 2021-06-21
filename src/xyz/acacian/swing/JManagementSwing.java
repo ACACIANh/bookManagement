@@ -16,11 +16,11 @@ public class JManagementSwing extends JFrame {
 		setTitle("도서 관리 프로그램");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 400);
-		//createTab();
+		createTab();
 		//setResizable(false);
 		setLocationRelativeTo(null);
-		//add(tabPane);
-		add(new JBookManagePane());
+		add(tabPane);
+		//add(new JBookManagePane());
 	}
 	
 	public void createTab() {
@@ -28,7 +28,7 @@ public class JManagementSwing extends JFrame {
 		panel = new JBookManagePane();
 		
 		tabPane.addTab("도서 관리", panel);
-		//tabPane.addTab("회원 관리", new JLabel("menu 2"));
+		tabPane.addTab("회원 관리", new JLabel("menu 2"));
 	}
 	
 
