@@ -174,7 +174,7 @@ private static final long serialVersionUID = 1L;
 		insertUpdateDialog.setVisible(true); 
 		((JInsertUpdateMemberDialog)insertUpdateDialog).radioInsertSelect(false);	
 		((JInsertUpdateMemberDialog)insertUpdateDialog)
-									.setUpdateField(getSelectMember());
+									.setUpdateField(getSelectMemeberToUpdate());
 	}
 	
 	private void deleteColumn() {
@@ -232,9 +232,15 @@ private static final long serialVersionUID = 1L;
 		return returnMember;
 	}
 	
+	public MemberDTO getSelectMemeberToUpdate() {	
+		String num = table.getValueAt(table.getSelectedRow(), EMemberAttribute.NUM.getValue()).toString();
+		MemberDTO returnMember = MemberDAO.getDAO().selectMemberList(num, EMemberAttribute.NUM).get(0);
+		return returnMember;
+	}
+	
 	private void searchMember() {
-		List<MemberDTO> bookList = MemberDAO.getDAO().selectMemberList(searchTextField.getText(), searchAttribute);
-		displayMembers(bookList);
+		var memberList = MemberDAO.getDAO().selectMemberList(searchTextField.getText(), searchAttribute);
+		displayMembers(memberList);
 	}
 	
 	private void displayMembers(List<MemberDTO> memberList) {
@@ -249,10 +255,13 @@ private static final long serialVersionUID = 1L;
 		for(MemberDTO member:memberList) {
 			Vector<Object> rowData = new Vector<Object>();
 			rowData.add(member.getNum());
+			rowData.add(ELevel.getStringStatic(member.getId_level()));
+			rowData.add(member.getId());
+			rowData.add("");
 			rowData.add(member.getName());
-			//rowData.add(member.getAuthor());
-
-			//Ãß°¡
+			rowData.add(member.getPhone());
+			rowData.add(member.getBirthday());
+			
 			model.addRow(rowData);
 		}
 	}

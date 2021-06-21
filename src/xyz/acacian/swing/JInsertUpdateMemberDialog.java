@@ -14,6 +14,7 @@ import xyz.acacian.database.MemberDAO;
 import xyz.acacian.database.MemberDTO;
 import xyz.acacian.enums.ECategory;
 import xyz.acacian.enums.ELevel;
+import xyz.acacian.enums.EMemberAttribute;
 
 import javax.swing.JRadioButton;
 
@@ -162,7 +163,9 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		nameField.setText("");
 		idField.setText("");
 		pwField.setText("");
-		levelComboBox.setSelectedIndex(0);
+		phoneField.setText("");
+		birthdayField.setText("");
+		levelComboBox.setSelectedIndex(2);
 	}
 	
 	public void setUpdateField(MemberDTO member) {
@@ -170,7 +173,7 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		nameField.setText(member.getName());
 		levelComboBox.setSelectedIndex(member.getId_level());
 		idField.setText(member.getId());
-		pwField.setText("");
+		pwField.setText(member.getPw());
 		phoneField.setText(member.getPhone());
 		birthdayField.setText(member.getBirthday());
 	}
@@ -179,7 +182,10 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		if(!canInsertUpdate()) {
 			return;
 		}
-
+		if(!canUseId()) {
+			return;
+		}
+		
 		MemberDTO member = new MemberDTO(
 				Integer.parseInt(numberField.getText()),
 				((ELevel)levelComboBox.getSelectedItem()).getValue(),
@@ -201,22 +207,39 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		if(!canInsertUpdate()) {
 			return;
 		}
+		if(!canUseId()) {
+			return;
+		}
 		
-		BookDTO book = new BookDTO(
+		MemberDTO member = new MemberDTO(
 				Integer.parseInt(numberField.getText()),
+				((ELevel)levelComboBox.getSelectedItem()).getValue(),
+				idField.getText(), 
+				pwField.getText(),
 				nameField.getText(), 
-				idField.getText(),
-				pwField.getText(), 
-				((ECategory)levelComboBox.getSelectedItem()).getValue());
+				phoneField.getText(), 
+				birthdayField.getText()	);
 
-		BookDAO.getDAO().updateBook(book);
+		MemberDAO.getDAO().updateMember(member);
 		JOptionPane.showMessageDialog(this, "갱신 되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
 		clearField();	
 		parentPanel.displayAllMember();
 	}
+	public boolean canUseId() {
+		var list = MemberDAO.getDAO().selectMemberList(idField.getText(), EMemberAttribute.ID);
+		if(list.isEmpty()) {
+			return true;
+		}
+		if(list.get(0).getNum() == Integer.parseInt(numberField.getText())) {
+			return true;
+		}		
+		JOptionPane.showMessageDialog(this, "생성할수 없습니다.");
+		return false;
+	}
 
 	public boolean canInsertUpdate() {
 		String strTemp = nameField.getText();	
+		
 		if(strTemp.equals("")) {
 			JOptionPane.showMessageDialog(this, "이름을 입력해주세요.");
 			nameField.requestFocus();
@@ -224,14 +247,26 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		}
 		strTemp = idField.getText();	
 		if(strTemp.equals("")) {
-			JOptionPane.showMessageDialog(this, "저자를 입력해주세요.");
+			JOptionPane.showMessageDialog(this, "ID를 입력해주세요.");
 			idField.requestFocus();
 			return false;
 		}
 		strTemp = pwField.getText();	
 		if(strTemp.equals("")) {
-			JOptionPane.showMessageDialog(this, "출판사를 입력해주세요.");
+			JOptionPane.showMessageDialog(this, "비밀번호를 입력해주세요.");
 			pwField.requestFocus();
+			return false;
+		}
+		strTemp = phoneField.getText();	
+		if(strTemp.equals("")) {
+			JOptionPane.showMessageDialog(this, "번호를 입력해주세요.");
+			nameField.requestFocus();
+			return false;
+		}
+		strTemp = birthdayField.getText();		
+		if(strTemp.equals("")) {
+			JOptionPane.showMessageDialog(this, "생일을 입력해주세요.");
+			nameField.requestFocus();
 			return false;
 		}
 		return true;
