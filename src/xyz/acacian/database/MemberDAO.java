@@ -58,13 +58,15 @@ public class MemberDAO extends JdbcDAO {
 			con = getConnection();
 			
 			String sql 
-			= "update membermanager set name=?, author=?, publisher=?, category=? where num=?";
+			= "update membermanager set id_level=?, id=?, pw=?, name=?, phone=?, birthday=? where num=?";
 			pstmt = con.prepareStatement(sql);
-//			pstmt.setString(1, member.getName());
-//			pstmt.setString(2, member.getAuthor());
-//			pstmt.setString(3, member.getPublisher());
-//			pstmt.setString(4, member.getCategory());
-			pstmt.setInt(5, member.getNum());		//찾아서 교체하는것!
+			pstmt.setInt(1, member.getId_level());
+			pstmt.setString(2, member.getId());
+			pstmt.setString(3, member.getPw());
+			pstmt.setString(4, member.getName());
+			pstmt.setString(5, member.getPhone());
+			pstmt.setString(6, member.getBirthday());
+			pstmt.setInt(7, member.getNum());		//찾아서 교체하는것!
 			
 			rows = pstmt.executeUpdate();
 		} catch (SQLException e) {

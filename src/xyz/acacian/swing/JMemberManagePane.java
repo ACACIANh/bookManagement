@@ -22,6 +22,7 @@ import xyz.acacian.database.MemberDAO;
 import xyz.acacian.database.MemberDTO;
 import xyz.acacian.enums.EBdLayout;
 import xyz.acacian.enums.ECrudButton;
+import xyz.acacian.enums.ELevel;
 import xyz.acacian.enums.EMemberAttribute;
 import xyz.acacian.managers.MethodManager;
 import xyz.acacian.managers.UtilManager;
@@ -172,10 +173,6 @@ private static final long serialVersionUID = 1L;
 		}		
 		insertUpdateDialog.setVisible(true); 
 		((JInsertUpdateMemberDialog)insertUpdateDialog).radioInsertSelect(false);	
-//		int id = Integer.parseInt(
-//				table.getValueAt(table.getSelectedRow(), 0).toString());
-//		((JInsertUpdateBookDialog)insertUpdateDialog).setUpdateField(
-//				BookManager.getInstance().searchBook(id));
 		((JInsertUpdateMemberDialog)insertUpdateDialog)
 									.setUpdateField(getSelectMember());
 	}
@@ -207,8 +204,13 @@ private static final long serialVersionUID = 1L;
 		for(MemberDTO member:memberList) {
 			Vector<Object> rowData = new Vector<Object>();
 			rowData.add(member.getNum());
+			rowData.add(ELevel.getStringStatic(member.getId_level()));
+			rowData.add(member.getId());
+			rowData.add("");
 			rowData.add(member.getName());
-//추가
+			rowData.add(member.getPhone());
+			rowData.add(member.getBirthday());
+			
 			model.addRow(rowData);
 		}
 	}
@@ -218,9 +220,15 @@ private static final long serialVersionUID = 1L;
 		MemberDTO returnMember = new MemberDTO();
 		returnMember.setNum(
 		Integer.parseInt(table.getValueAt(index, EMemberAttribute.NUM.getValue()).toString()));
-		returnMember.setName(table.getValueAt(index, EMemberAttribute.NAME.getValue()).toString());
 
-//추가
+		returnMember.setId_level(
+				Integer.parseInt(table.getValueAt(index, EMemberAttribute.ID_LEVEL.getValue()).toString().substring(0,1)));
+		returnMember.setId(table.getValueAt(index, EMemberAttribute.ID.getValue()).toString());
+		returnMember.setPw(table.getValueAt(index, EMemberAttribute.PW.getValue()).toString());
+		returnMember.setName(table.getValueAt(index, EMemberAttribute.NAME.getValue()).toString());
+		returnMember.setPhone(table.getValueAt(index, EMemberAttribute.PHONE.getValue()).toString());
+		returnMember.setBirthday(table.getValueAt(index, EMemberAttribute.BIRTHDAY.getValue()).toString());
+		
 		return returnMember;
 	}
 	
