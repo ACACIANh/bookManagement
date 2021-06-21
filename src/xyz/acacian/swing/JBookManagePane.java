@@ -43,7 +43,7 @@ public class JBookManagePane extends JPanel{
 	private TextField searchTextField = null;
 	private JButton searchAllButton = null; 
 	private JButton searchButton = null; 
-	private JButton cancleButton = null; 
+//	private JButton cancleButton = null; 
 	
 	//CenterSide
 	private JScrollPane centerScroll = null;
@@ -117,8 +117,8 @@ public class JBookManagePane extends JPanel{
 		searchButton = new JButton("Search");
 		mainPanel[EBdLayout.SOUTH.getValue()].add(searchButton);
 		
-		cancleButton = new JButton("Cancle");
-		mainPanel[EBdLayout.SOUTH.getValue()].add(cancleButton);
+//		cancleButton = new JButton("Cancle");
+//		mainPanel[EBdLayout.SOUTH.getValue()].add(cancleButton);
 	
 		///////////////////////////
 		//CenterSidePanel Constructor
