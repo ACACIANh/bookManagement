@@ -168,31 +168,32 @@ public class JInsertUpdateMemberDialog extends JDialog{
 	public void setUpdateField(MemberDTO member) {
 		numberField.setText(Integer.toString(member.getNum()));
 		nameField.setText(member.getName());
+		levelComboBox.setSelectedIndex(member.getId_level());
+		idField.setText(member.getId());
+		pwField.setText("");
+		phoneField.setText(member.getPhone());
+		birthdayField.setText(member.getBirthday());
 	}
 	
 	public void insertButton() {
 		if(!canInsertUpdate()) {
 			return;
 		}
-		
-		BookDTO book = new BookDTO(
+
+		MemberDTO member = new MemberDTO(
 				Integer.parseInt(numberField.getText()),
+				((ELevel)levelComboBox.getSelectedItem()).getValue(),
+				idField.getText(), 
+				pwField.getText(),
 				nameField.getText(), 
-				idField.getText(),
-				pwField.getText(), 
-				((ECategory)levelComboBox.getSelectedItem()).getValue());
+				phoneField.getText(), 
+				birthdayField.getText()	);
 
-//		Book book = new Book(nameField.getText(), authorField.getText(),
-//				publisherField.getText(), (ECategory)categoryComboBox.getSelectedItem());
-		
-//		BookManager bm = BookManager.getInstance();
-//		bm.insertBook(book);
-
-		BookDAO.getDAO().insertBook(book);
+		MemberDAO.getDAO().insertMember(member);
 		JOptionPane.showMessageDialog(this, "추가 되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
-		//this.setVisible(false);
+
 		clearField();	
-		//parentPanel.validateTable();
+		
 		parentPanel.displayAllMember();
 	}
 	
