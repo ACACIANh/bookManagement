@@ -7,7 +7,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import xyz.acacian.enums.EBookAttribute;
+
 public class BookDAO extends JdbcDAO{
+	
+	public static String[] expressAttribute = {EBookAttribute.NUM.getString(),
+											   EBookAttribute.NAME.getString(),
+											   EBookAttribute.AUTHOR.getString(),
+											   EBookAttribute.PUBLISHER.getString(),
+											   EBookAttribute.CATEGORY.getString()};
+	
 	private static BookDAO instance;
 	
 	static {
@@ -53,7 +62,7 @@ public class BookDAO extends JdbcDAO{
 			con = getConnection();
 			
 			String sql 
-			= "update bookmanager set name=?, author=?, publisher=?, gategory=? where num=?";
+			= "update bookmanager set name=?, author=?, publisher=?, category=? where num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, book.getName());
 			pstmt.setString(2, book.getAuthor());
@@ -121,6 +130,31 @@ public class BookDAO extends JdbcDAO{
 	}
 	
 	
+	public int getLatestNum(){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int latestNum = 0;
+		
+		try {
+			con = getConnection();
+			
+			String sql = "select num from bookmanager where rownum = 1 order by num desc";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				latestNum = rs.getInt("num");
+			}
+			
+		} catch(SQLException e) {
+			System.out.println("[에러]selectAllBookList() 메소드 SQL 오류 " + e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return latestNum;
+	}
 	
 
 }

@@ -26,7 +26,7 @@ public enum MethodManager {
 		
 		//각 항목별 정규표현식 비교 추후에 추가할것.
 		switch(attriute) {
-		case ID:
+		case NUM:
 			if(text.length() > 10) {
 				return false;
 			}

@@ -136,15 +136,12 @@ public class JBookManagePane extends JPanel{
 		String[] columnNames = Book.expressAttribute;
 		//String[][] rowData = BookManager.getInstance().getString2Dimension();
 		tableModel = new DefaultTableModel(columnNames, 0);
-		table = new JTable(tableModel) ;
-//		{
-//			   @Override
-//			    public boolean isCellEditable(int row, int column) {
-//			        return false;
-//			    }
-//		};	
-		
-		table.getTableHeader().setResizingAllowed(false);
+		table = new JTable(tableModel){
+			   @Override
+			    public boolean isCellEditable(int row, int column) {
+			        return false;
+			    }
+		};	
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getSelectionModel().addListSelectionListener(
 			e -> {if(!e.getValueIsAdjusting())
@@ -167,55 +164,8 @@ public class JBookManagePane extends JPanel{
 		
 		add(new JLabel("여백의 미"), BorderLayout.EAST);
 		
-		//createTemp();
 	}
-	
-	private void createTemp() {
-		//temp
-		JPanel panel_left = new JPanel();
-		add(panel_left, BorderLayout.WEST);	
-		JLabel newlabel_left = new JLabel("left side");
-		panel_left.add(newlabel_left);
-		
-		JPanel panel_top = new JPanel();
-		add(panel_top, BorderLayout.NORTH);	
-		JLabel newlabel_top = new JLabel("top side");
-		panel_top.add(newlabel_top);
-		
-		JPanel panel_right = new JPanel();
-		add(panel_right, BorderLayout.EAST);
-		JLabel newlabel_right = new JLabel("right side");
-		panel_right.add(newlabel_right);
-		
-		JPanel panel_bottom = new JPanel();
-		add(panel_bottom, BorderLayout.SOUTH);	
-		
-		TextField textField_bottom = new TextField();
-		textField_bottom.setFont(new Font("고딕", Font.BOLD, 18));
-		textField_bottom.setColumns(20);
-		panel_bottom.add(textField_bottom);
-		
-		JLabel newlabel_bottom = new JLabel("bottom side");
-		panel_bottom.add(newlabel_bottom);
-	}
-	
-	public void validateTable() {
-		//테이블만 바꾸게 개선해보자
-		String[] columnNames = Book.expressAttribute;
-		String[][] rowData = BookManager.getInstance().getString2Dimension();
-		tableModel = new DefaultTableModel(rowData, columnNames);	
 
-		int index = selectRowIndex;
-		table.setModel(tableModel);
-		if(tableModel.getRowCount() <= index) {
-			--index;
-		}
-		if(UtilManager.OUT_OF_INDEX != index) {
-			table.setRowSelectionInterval(index, index);	
-		}
-		table.validate();				//추후 개선할것
-	}
-	
 	private void insertButton() {
 		insertUpdateDialog.setVisible(true); 
 		((JInsertUpdateBookDialog)insertUpdateDialog).radioInsertSelect(true); 
@@ -223,30 +173,30 @@ public class JBookManagePane extends JPanel{
 	}
 	
 	private void updateButton() {
-		if(UtilManager.OUT_OF_INDEX == selectRowIndex) {
+		if(UtilManager.OUT_OF_INDEX == table.getSelectedRow()) {
 			MethodManager.getInstance().notSelectColumn(this);
 			return;
 		}		
 		insertUpdateDialog.setVisible(true); 
 		((JInsertUpdateBookDialog)insertUpdateDialog).radioInsertSelect(false);	
-		int id = Integer.parseInt(
-				table.getValueAt(selectRowIndex, 0).toString());
-		((JInsertUpdateBookDialog)insertUpdateDialog).setUpdateField(
-				BookManager.getInstance().searchBook(id));
+//		int id = Integer.parseInt(
+//				table.getValueAt(table.getSelectedRow(), 0).toString());
+//		((JInsertUpdateBookDialog)insertUpdateDialog).setUpdateField(
+//				BookManager.getInstance().searchBook(id));
+		((JInsertUpdateBookDialog)insertUpdateDialog)
+									.setUpdateField(test());
 	}
 	
 	private void deleteColumn() {
-		if(UtilManager.OUT_OF_INDEX == selectRowIndex) {
+		if(UtilManager.OUT_OF_INDEX == table.getSelectedRow()) {
 			MethodManager.getInstance().notSelectColumn(this);
 			return;
 		}
 		insertUpdateDialog.setVisible(false); 
-		int id = Integer.parseInt(
-				table.getValueAt(selectRowIndex, 0).toString());
-		BookManager.getInstance().removeBookNumber(id);
-		//validateTable();
+		int num = Integer.parseInt(
+				table.getValueAt(table.getSelectedRow(), 0).toString());		
+		BookDAO.getDAO().deleteBook(num);
 		displayAllBook();
-		//삭제하고 인덱스 초기화
 	}
 	
 	public void displayAllBook() {
@@ -272,25 +222,37 @@ public class JBookManagePane extends JPanel{
 	}
 	
 	public void setLowIndex(int index) {
-		//두번씩 호출됨 고칠것.
-//		if(UtilManager.OUT_OF_INDEX == index) {
-//			//임시로..
-//			return;
-//		}
-		selectRowIndex = index;		
-		System.out.println("클릭된 인덱스 = " + index);
-		
-//		Object obj = table.getValueAt(index, 0);
-//		if(null != obj) {
-//			System.out.println("클릭된 책" + obj.toString());
-//		}
-		
-		int id = Integer.parseInt(
-				table.getValueAt(selectRowIndex, 0).toString());
-		Book book = BookManager.getInstance().searchBook(id);
-		System.out.println("클릭된 책 번호 = " + book.getId());
-		System.out.println("클릭된 책 이름 = " + book.getName());
+		//일단 나중에
+//		//두번씩 호출됨 고칠것.
+////		if(UtilManager.OUT_OF_INDEX == index) {
+////			//임시로..
+////			return;
+////		}
+//		selectRowIndex = index;		
+//		System.out.println("클릭된 인덱스 = " + index);
+//		
+////		Object obj = table.getValueAt(index, 0);
+////		if(null != obj) {
+////			System.out.println("클릭된 책" + obj.toString());
+////		}
+//		
+//		int id = Integer.parseInt(
+//				table.getValueAt(selectRowIndex, 0).toString());
+//		Book book = BookManager.getInstance().searchBook(id);
+//		System.out.println("클릭된 책 번호 = " + book.getId());
+//		System.out.println("클릭된 책 이름 = " + book.getName());
 	}
 	
+	public BookDTO test() {
+		int index = table.getSelectedRow();	
+		BookDTO returnBook = new BookDTO();
+		returnBook.setNum(
+		Integer.parseInt(table.getValueAt(index, EBookAttribute.NUM.getValue()).toString()));
+		returnBook.setName(table.getValueAt(index, EBookAttribute.NAME.getValue()).toString());
+		returnBook.setAuthor(table.getValueAt(index, EBookAttribute.AUTHOR.getValue()).toString());
+		returnBook.setPublisher(table.getValueAt(index, EBookAttribute.PUBLISHER.getValue()).toString());
+		returnBook.setCategory(table.getValueAt(index, EBookAttribute.CATEGORY.getValue()).toString());
+        return returnBook;
+	}
 
 }

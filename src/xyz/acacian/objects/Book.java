@@ -12,11 +12,11 @@ public class Book implements Serializable {
 
 	//public static String[] expressAttribute = {"고유 번호","고유 번호", "제목", "저자", "출판사"};
 	
-	public static String[] expressAttribute = {EBookAttribute.ID.getValue(),
-											   EBookAttribute.NAME.getValue(),
-											   EBookAttribute.AUTHOR.getValue(),
-											   EBookAttribute.PUBLISHER.getValue(),
-											   EBookAttribute.CATEGORY.getValue()};
+	public static String[] expressAttribute = {EBookAttribute.NUM.getString(),
+											   EBookAttribute.NAME.getString(),
+											   EBookAttribute.AUTHOR.getString(),
+											   EBookAttribute.PUBLISHER.getString(),
+											   EBookAttribute.CATEGORY.getString()};
 	
 	
 	private static int seedId = 0;

@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import xyz.acacian.database.BookDAO;
+import xyz.acacian.database.BookDTO;
 import xyz.acacian.enums.EBookAttribute;
 import xyz.acacian.enums.ECategory;
 import xyz.acacian.managers.BookManager;
@@ -125,19 +127,22 @@ public class JInsertUpdateBookDialog extends JDialog{
 	}
 	
 	public void clearField() {
-		numberField.setText(Integer.toString(Book.getSeedId()+1));
+		String latestNum = Integer.toString(BookDAO.getDAO().getLatestNum()+1);
+		numberField.setText(latestNum);
+		//numberField.setText(Integer.toString(Book.getSeedId()+1));
 		nameField.setText("");
 		authorField.setText("");
 		publisherField.setText("");
 		categoryComboBox.setSelectedIndex(0);
 	}
 	
-	public void setUpdateField(Book book) {
-		numberField.setText(Integer.toString(book.getId()));
+	public void setUpdateField(BookDTO book) {
+		numberField.setText(Integer.toString(book.getNum()));
 		nameField.setText(book.getName());
 		authorField.setText(book.getAuthor());
 		publisherField.setText(book.getPublisher());
-		categoryComboBox.setSelectedItem(book.getCategory());
+		categoryComboBox.setSelectedIndex(
+				Integer.parseInt(book.getCategory().substring(0,1))	);
 	}
 	
 	public void insertButton() {
@@ -147,14 +152,22 @@ public class JInsertUpdateBookDialog extends JDialog{
 			MethodManager.getInstance().somethingWrong(this);
 			//수정사항
 			}
-				
-		Book book = new Book(nameField.getText(), authorField.getText(),
-				publisherField.getText(), (ECategory)categoryComboBox.getSelectedItem());
 		
-		BookManager bm = BookManager.getInstance();
-		bm.insertBook(book);
-		JOptionPane.showMessageDialog(this, "추가 되었습니다."
-				,"알림", JOptionPane.INFORMATION_MESSAGE);
+		BookDTO book = new BookDTO(
+				Integer.parseInt(numberField.getText()),
+				nameField.getText(), 
+				authorField.getText(),
+				publisherField.getText(), 
+				((ECategory)categoryComboBox.getSelectedItem()).getValue());
+
+//		Book book = new Book(nameField.getText(), authorField.getText(),
+//				publisherField.getText(), (ECategory)categoryComboBox.getSelectedItem());
+		
+//		BookManager bm = BookManager.getInstance();
+//		bm.insertBook(book);
+
+		BookDAO.getDAO().insertBook(book);
+		JOptionPane.showMessageDialog(this, "추가 되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
 		//this.setVisible(false);
 		clearField();	
 		//parentPanel.validateTable();
@@ -162,7 +175,24 @@ public class JInsertUpdateBookDialog extends JDialog{
 	}
 	
 	public void updateButton() {
-		
+		if(!MethodManager.getInstance().isPossibleTextField(nameField, EBookAttribute.NAME)
+				||!MethodManager.getInstance().isPossibleTextField(authorField, EBookAttribute.AUTHOR)
+				||!MethodManager.getInstance().isPossibleTextField(publisherField, EBookAttribute.PUBLISHER)){
+				MethodManager.getInstance().somethingWrong(this);
+				//수정사항
+				}
+			
+			BookDTO book = new BookDTO(
+					Integer.parseInt(numberField.getText()),
+					nameField.getText(), 
+					authorField.getText(),
+					publisherField.getText(), 
+					((ECategory)categoryComboBox.getSelectedItem()).getValue());
+
+			BookDAO.getDAO().updateBook(book);
+			JOptionPane.showMessageDialog(this, "갱신 되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
+			clearField();	
+			parentPanel.displayAllBook();
 	}
 
 
