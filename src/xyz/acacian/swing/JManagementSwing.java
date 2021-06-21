@@ -10,7 +10,7 @@ public class JManagementSwing extends JFrame {
 	
 	public JTabbedPane tabPane = null;
 
-	private JPanel panel = null;
+	private JPanel[] panel = null;
 	
 	public JManagementSwing() {
 		setTitle("도서 관리 프로그램");
@@ -26,10 +26,15 @@ public class JManagementSwing extends JFrame {
 	
 	public void createTab() {
 		tabPane = new JTabbedPane();
-		panel = new JBookManagePane();
 		
-		tabPane.addTab("도서 관리", panel);
-		tabPane.addTab("회원 관리", new JLabel("menu 2"));
+		panel = new JPanel[3];
+		panel[1] = new JBookManagePane();
+		panel[2] = new JMemberManagePane();
+		
+		tabPane.addTab("로그인창", new JLabel("로그인창"));
+		tabPane.addTab("도서 관리", panel[1]);
+		tabPane.addTab("회원 관리", panel[2]);
+		
 	}
 	
 

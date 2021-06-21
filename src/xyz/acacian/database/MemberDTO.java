@@ -1,5 +1,7 @@
 package xyz.acacian.database;
 
+import xyz.acacian.enums.EMemberAttribute;
+
 /*
 이름       널       유형            
 -------- -------- ------------- 
@@ -13,6 +15,14 @@ BIRTHDAY          DATE(40)
 */
 
 public class MemberDTO {
+	public static String[] expressAttribute = {EMemberAttribute.NUM.getString(),
+												EMemberAttribute.ID_LEVEL.getString(),
+												EMemberAttribute.ID.getString(),
+												EMemberAttribute.PW.getString(),
+												EMemberAttribute.NAME.getString(),
+												EMemberAttribute.PHONE.getString(),
+												EMemberAttribute.BIRTHDAY.getString()};
+
 	private int num;
 	private int id_level;
 	private String id;
