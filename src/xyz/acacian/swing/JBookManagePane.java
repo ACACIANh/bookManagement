@@ -1,6 +1,8 @@
 package xyz.acacian.swing;
 
 import xyz.acacian.enums.ECrudButton;
+import xyz.acacian.database.BookDAO;
+import xyz.acacian.database.BookDTO;
 import xyz.acacian.enums.EBdLayout;
 import xyz.acacian.enums.EBookAttribute;
 import xyz.acacian.managers.BookManager;
@@ -16,12 +18,16 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.TextField;
+import java.util.List;
+import java.util.Vector;
+
 import javax.swing.JComboBox;
 
 
@@ -98,6 +104,8 @@ public class JBookManagePane extends JPanel{
 		
 		searchAllButton = new JButton("SearchAll");
 		mainPanel[EBdLayout.SOUTH.getValue()].add(searchAllButton);
+		searchAllButton.addActionListener(
+				e-> BookDAO.getDAO().selectAllBookList());
 		
 		searchComboBox = new JComboBox(EBookAttribute.values());
 		searchComboBox.setSelectedItem(searchAttribute);
@@ -126,18 +134,23 @@ public class JBookManagePane extends JPanel{
 		
 		// 싹 개선
 		String[] columnNames = Book.expressAttribute;
-		String[][] rowData = BookManager.getInstance().getString2Dimension();
-		tableModel = new DefaultTableModel(rowData, columnNames);
-		table = new JTable(tableModel) {
-			   @Override
-			    public boolean isCellEditable(int row, int column) {
-			        return false;
-			    }
-		};	
+		//String[][] rowData = BookManager.getInstance().getString2Dimension();
+		tableModel = new DefaultTableModel(columnNames, 0);
+		table = new JTable(tableModel) ;
+//		{
+//			   @Override
+//			    public boolean isCellEditable(int row, int column) {
+//			        return false;
+//			    }
+//		};	
+		
+		table.getTableHeader().setResizingAllowed(false);
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getSelectionModel().addListSelectionListener(
 			e -> {if(!e.getValueIsAdjusting())
 						setLowIndex(table.getSelectedRow());});
+		
+		displayAllBook();
 		
 		centerScroll = new JScrollPane(table);
 		add(centerScroll, BorderLayout.CENTER);
@@ -231,8 +244,31 @@ public class JBookManagePane extends JPanel{
 		int id = Integer.parseInt(
 				table.getValueAt(selectRowIndex, 0).toString());
 		BookManager.getInstance().removeBookNumber(id);
-		validateTable();
+		//validateTable();
+		displayAllBook();
 		//삭제하고 인덱스 초기화
+	}
+	
+	public void displayAllBook() {
+		List<BookDTO> bookList = BookDAO.getDAO().selectAllBookList();
+		if(bookList.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "저장된 책이 없습니다.");
+			return;
+		}
+		
+		DefaultTableModel model = (DefaultTableModel)table.getModel();
+		for(int i=model.getRowCount(); i>0; --i) {
+			model.removeRow(0);
+		}
+		for(BookDTO book:bookList) {
+			Vector<Object> rowData = new Vector<Object>();
+			rowData.add(book.getNum());
+			rowData.add(book.getName());
+			rowData.add(book.getAuthor());
+			rowData.add(book.getPublisher());
+			rowData.add(book.getCategory());
+			model.addRow(rowData);
+		}
 	}
 	
 	public void setLowIndex(int index) {

@@ -157,7 +157,8 @@ public class JInsertUpdateBookDialog extends JDialog{
 				,"¾Ë¸²", JOptionPane.INFORMATION_MESSAGE);
 		//this.setVisible(false);
 		clearField();	
-		parentPanel.validateTable();
+		//parentPanel.validateTable();
+		parentPanel.displayAllBook();
 	}
 	
 	public void updateButton() {
