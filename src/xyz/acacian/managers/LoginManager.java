@@ -83,6 +83,7 @@ public enum LoginManager {
 		viewLevelBook();
 		viewLevelMember();
 		JOptionPane.showMessageDialog(loginManagePane, "로그인 성공");	
+		tabbPane.setSelectedIndex(1);
 	}
 	
 	public void viewLevelTabb() {
@@ -131,6 +132,16 @@ public enum LoginManager {
 		default:
 			break;
 		}		
+	}
+	public boolean isLogin() {
+		return member != null;
+	}
+	
+	public void logOut() {
+		this.member = null;
+		viewLevelTabb();
+		JOptionPane.showMessageDialog(loginManagePane, "로그아웃 성공");	
+		
 	}
 		
 }

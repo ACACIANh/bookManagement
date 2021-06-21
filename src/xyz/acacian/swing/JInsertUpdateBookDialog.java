@@ -1,5 +1,8 @@
 package xyz.acacian.swing;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -42,7 +45,6 @@ public class JInsertUpdateBookDialog extends JDialog{
 		setBounds(100, 100, 500, 600);
 		setResizable(false);
 		getContentPane().setLayout(null);
-		
 		
 		JLabel numberLabel = new JLabel("¹ø È£:");
 		numberLabel.setBounds(12, START_+INTERVAL_*0, 73, 30);

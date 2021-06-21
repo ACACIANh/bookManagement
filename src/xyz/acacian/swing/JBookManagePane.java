@@ -78,7 +78,7 @@ public class JBookManagePane extends JPanel{
 		//leftBottomPanel.setLayout(new GridLayout(ECrudButton.values().length, 0, 0, 0));
 		
 		insertUpdateDialog = new JInsertUpdateBookDialog(this);
-
+		
 		bookButton = new JButton[ECrudButton.size()];
 		
 		bookButton[ECrudButton.INSERT.getValue()] = new JButton("INSERT");

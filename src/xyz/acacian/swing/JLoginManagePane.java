@@ -16,6 +16,8 @@ public class JLoginManagePane extends JPanel {
 
 	private JTextField idField;
 	private JTextField pwField;
+	
+	private JButton loginButton;
 
 	public JLoginManagePane() {
 		
@@ -29,6 +31,7 @@ public class JLoginManagePane extends JPanel {
 		idField = new JTextField();
 		idField.setColumns(10);
 		idField.setBounds(90, START_ + INTERVAL_ * 1, 280, 30);
+		idField.addActionListener(e->loginButton());
 		add(idField);
 
 		JLabel pwLabel = new JLabel("PW :");
@@ -39,19 +42,43 @@ public class JLoginManagePane extends JPanel {
 		pwField = new JTextField();
 		pwField.setColumns(10);
 		pwField.setBounds(90, START_ + INTERVAL_ * 2, 280, 30);
+		pwField.addActionListener(e->loginButton());
 		add(pwField);
 
-		JButton loginButton = new JButton("로그인");
+		loginButton = new JButton("로그인");
 		loginButton.setBounds(12, START_ + INTERVAL_ * 3, 370, 73);
 		loginButton.addActionListener(e-> loginButton());
+		
+//		loginButton.addActionListener(
+//				e-> { System.out.println(e.getActionCommand());
+//						loginButton(); });
+		
 		add(loginButton);
+		
+		JButton loginQuickButton = new JButton("관리자 로그인");
+		loginQuickButton.setBounds(12, START_ + INTERVAL_ * 4, 370, 73);
+		loginQuickButton.addActionListener(e-> {
+			LoginManager.getInstance().Login("gkehdrn", "gkehdrn");
+			loginButton.setText("로그아웃"); });
+		add(loginQuickButton);
+		
+		JButton insertMemberButton = new JButton("회원가입");
+		insertMemberButton.setBounds(12, START_ + INTERVAL_ * 5, 370, 73);
+		insertMemberButton.addActionListener(e-> System.out.println("회원가입창 띄우자"));
+		add(insertMemberButton);
 	}
 
-	private void loginButton() {	
+	private void loginButton() {
+		if(LoginManager.getInstance().isLogin()) {
+			LoginManager.getInstance().logOut();
+			loginButton.setText("로그인");
+		}
 		if(!canLoginButton()) {
 			return;
 		}
+		loginButton.setText("로그아웃");
 		LoginManager.getInstance().Login(idField.getText(), pwField.getText());		
+		clearField();
 	}
 	
 	public boolean canLoginButton() {
