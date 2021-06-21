@@ -43,4 +43,26 @@ public enum EBookAttribute {
 		return str;
 	}
 
+	public String getStringSQL() {
+		String str = "";
+		switch (this) {
+		case NUM:
+			str = "num";
+			break;
+		case NAME:
+			str = "name";
+			break;
+		case AUTHOR:
+			str = "author";
+			break;
+		case PUBLISHER:
+			str = "publisher";
+			break;
+		case CATEGORY:
+			str = "category";
+			break;
+		}
+		return str;
+	}
+
 }

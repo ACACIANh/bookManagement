@@ -137,25 +137,9 @@ public class BookDAO extends JdbcDAO{
 		try {
 			con = getConnection();
 			
-			String sql = "select * from bookmanager ";
-			switch(type) {
-			case NUM:
-				sql += "where num = ?";
-				break;
-			case NAME:
-				sql += "where name = ?";
-				break;
-			case AUTHOR:
-				sql += "where author = ?";
-				break;
-			case PUBLISHER:
-				sql += "where publisher = ?";
-				break;
-			case CATEGORY:
-				sql += "where category = ?";
-				break;
-			}
-			sql += " order by num";
+			String sql = "select * from bookmanager where ";
+			sql += type.getStringSQL();		// "name"
+			sql += " like '%'||?||'%' order by num";
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, data);

@@ -146,12 +146,9 @@ public class JInsertUpdateBookDialog extends JDialog{
 	}
 	
 	public void insertButton() {
-		if(!MethodManager.getInstance().isPossibleTextField(nameField, EBookAttribute.NAME)
-			||!MethodManager.getInstance().isPossibleTextField(authorField, EBookAttribute.AUTHOR)
-			||!MethodManager.getInstance().isPossibleTextField(publisherField, EBookAttribute.PUBLISHER)){
-			MethodManager.getInstance().somethingWrong(this);
-			//수정사항
-			}
+		if(!canInsertUpdate()) {
+			return;
+		}
 		
 		BookDTO book = new BookDTO(
 				Integer.parseInt(numberField.getText()),
@@ -175,26 +172,44 @@ public class JInsertUpdateBookDialog extends JDialog{
 	}
 	
 	public void updateButton() {
-		if(!MethodManager.getInstance().isPossibleTextField(nameField, EBookAttribute.NAME)
-				||!MethodManager.getInstance().isPossibleTextField(authorField, EBookAttribute.AUTHOR)
-				||!MethodManager.getInstance().isPossibleTextField(publisherField, EBookAttribute.PUBLISHER)){
-				MethodManager.getInstance().somethingWrong(this);
-				//수정사항
-				}
-			
-			BookDTO book = new BookDTO(
-					Integer.parseInt(numberField.getText()),
-					nameField.getText(), 
-					authorField.getText(),
-					publisherField.getText(), 
-					((ECategory)categoryComboBox.getSelectedItem()).getValue());
+		if(!canInsertUpdate()) {
+			return;
+		}
+		
+		BookDTO book = new BookDTO(
+				Integer.parseInt(numberField.getText()),
+				nameField.getText(), 
+				authorField.getText(),
+				publisherField.getText(), 
+				((ECategory)categoryComboBox.getSelectedItem()).getValue());
 
-			BookDAO.getDAO().updateBook(book);
-			JOptionPane.showMessageDialog(this, "갱신 되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
-			clearField();	
-			parentPanel.displayAllBook();
+		BookDAO.getDAO().updateBook(book);
+		JOptionPane.showMessageDialog(this, "갱신 되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
+		clearField();	
+		parentPanel.displayAllBook();
 	}
 
+	public boolean canInsertUpdate() {
+		String strTemp = nameField.getText();	
+		if(strTemp.equals("")) {
+			JOptionPane.showMessageDialog(this, "이름을 입력해주세요.");
+			nameField.requestFocus();
+			return false;
+		}
+		strTemp = authorField.getText();	
+		if(strTemp.equals("")) {
+			JOptionPane.showMessageDialog(this, "저자를 입력해주세요.");
+			authorField.requestFocus();
+			return false;
+		}
+		strTemp = publisherField.getText();	
+		if(strTemp.equals("")) {
+			JOptionPane.showMessageDialog(this, "출판사를 입력해주세요.");
+			publisherField.requestFocus();
+			return false;
+		}
+		return true;
+	}
 
 
 

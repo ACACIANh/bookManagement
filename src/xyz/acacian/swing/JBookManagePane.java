@@ -105,7 +105,7 @@ public class JBookManagePane extends JPanel{
 		searchAllButton = new JButton("SearchAll");
 		mainPanel[EBdLayout.SOUTH.getValue()].add(searchAllButton);
 		searchAllButton.addActionListener(
-				e-> BookDAO.getDAO().selectAllBookList());
+				e-> displayAllBook());
 		
 		searchComboBox = new JComboBox(EBookAttribute.values());
 		searchComboBox.setSelectedItem(searchAttribute);
@@ -118,6 +118,8 @@ public class JBookManagePane extends JPanel{
 		searchTextField = new TextField();
 		searchTextField.setFont(new Font("고딕", Font.BOLD, 15));
 		searchTextField.setColumns(30);
+		searchTextField.addActionListener(
+				e->searchBook());
 		mainPanel[EBdLayout.SOUTH.getValue()].add(searchTextField);
 		
 
@@ -265,7 +267,7 @@ public class JBookManagePane extends JPanel{
 	
 	private void displayBooks(List<BookDTO> bookList) {
 		if(bookList.isEmpty()) {
-			JOptionPane.showMessageDialog(this, "저장된 책이 없습니다.");
+			//JOptionPane.showMessageDialog(this, "저장된 책이 없습니다.");
 			return;
 		}		
 		DefaultTableModel model = (DefaultTableModel)table.getModel();
