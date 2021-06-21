@@ -237,10 +237,10 @@ public class JBookManagePane extends JPanel{
 	
 	public void setLowIndex(int index) {
 		//두번씩 호출됨 고칠것.
-		if(UtilManager.OUT_OF_INDEX == index) {
-			//임시로..
-			return;
-		}
+//		if(UtilManager.OUT_OF_INDEX == index) {
+//			//임시로..
+//			return;
+//		}
 		selectRowIndex = index;		
 		System.out.println("클릭된 인덱스 = " + index);
 		

@@ -27,7 +27,7 @@ public class JManagementSwing extends JFrame {
 		panel = new JBookManagePane();
 		
 		tabPane.addTab("档辑 包府", panel);
-		tabPane.addTab("雀盔 包府", new JLabel("menu 2"));
+		//tabPane.addTab("雀盔 包府", new JLabel("menu 2"));
 	}
 	
 

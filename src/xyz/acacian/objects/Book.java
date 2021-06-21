@@ -164,8 +164,7 @@ public class Book implements Serializable {
 	public String toString() {
 		String blank = " | ";
 		return blank + this.categoryName + blank + this.name + blank + this.author + blank + this.publisher + blank
-				+ category.toStringKor
-				() + blank;
+				+ category.getValue() + blank;
 	}
 	
 	public String[] toStringArr() {
