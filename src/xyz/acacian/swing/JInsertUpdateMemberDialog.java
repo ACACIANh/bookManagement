@@ -19,7 +19,6 @@ import xyz.acacian.enums.EMemberAttribute;
 import javax.swing.JRadioButton;
 
 
-//½Ï´Ù ¼öÁ¤
 public class JInsertUpdateMemberDialog extends JDialog{
 	private static final long serialVersionUID = 1L;
 	

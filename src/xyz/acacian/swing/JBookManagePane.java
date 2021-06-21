@@ -146,9 +146,9 @@ public class JBookManagePane extends JPanel{
 			    }
 		};	
 		table.getTableHeader().setReorderingAllowed(false);
-		table.getSelectionModel().addListSelectionListener(
-			e -> {if(!e.getValueIsAdjusting())
-						setLowIndex(table.getSelectedRow());});
+//		table.getSelectionModel().addListSelectionListener(
+//			e -> {if(!e.getValueIsAdjusting())
+//						setLowIndex(table.getSelectedRow());});
 		
 		displayAllBook();
 		
@@ -223,28 +223,6 @@ public class JBookManagePane extends JPanel{
 			rowData.add(book.getCategory());
 			model.addRow(rowData);
 		}
-	}
-	
-	public void setLowIndex(int index) {
-		//일단 나중에
-//		//두번씩 호출됨 고칠것.
-////		if(UtilManager.OUT_OF_INDEX == index) {
-////			//임시로..
-////			return;
-////		}
-//		selectRowIndex = index;		
-//		System.out.println("클릭된 인덱스 = " + index);
-//		
-////		Object obj = table.getValueAt(index, 0);
-////		if(null != obj) {
-////			System.out.println("클릭된 책" + obj.toString());
-////		}
-//		
-//		int id = Integer.parseInt(
-//				table.getValueAt(selectRowIndex, 0).toString());
-//		Book book = BookManager.getInstance().searchBook(id);
-//		System.out.println("클릭된 책 번호 = " + book.getId());
-//		System.out.println("클릭된 책 이름 = " + book.getName());
 	}
 	
 	public BookDTO getSelectBook() {

@@ -1,5 +1,6 @@
 package xyz.acacian.managers;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
 import xyz.acacian.database.MemberDAO;
@@ -7,6 +8,7 @@ import xyz.acacian.database.MemberDTO;
 import xyz.acacian.enums.ELevel;
 import xyz.acacian.enums.EMemberAttribute;
 import xyz.acacian.swing.JBookManagePane;
+import xyz.acacian.swing.JLoginManagePane;
 import xyz.acacian.swing.JMemberManagePane;
 
 public enum LoginManager {
@@ -23,6 +25,7 @@ public enum LoginManager {
 
 	private JTabbedPane tabbPane;
 
+	private JLoginManagePane loginManagePane;
 	private JBookManagePane bookManagePane;
 	private JMemberManagePane memberManagePane;
 	
@@ -33,6 +36,14 @@ public enum LoginManager {
 
 	public void setTabbPane(JTabbedPane tabbPane) {
 		this.tabbPane = tabbPane;
+	}
+	
+	public JLoginManagePane getLoginManagePane() {
+		return loginManagePane;
+	}
+
+	public void setLoginManagePane(JLoginManagePane loginManagePane) {
+		this.loginManagePane = loginManagePane;
 	}
 	
 	public JBookManagePane getBookManagePane() {
@@ -53,17 +64,17 @@ public enum LoginManager {
 
 	public void Login(String id, String pw) {
 		if(null != member) {
-			//이미 로그인 되었음
+			JOptionPane.showMessageDialog(loginManagePane, "이미 로그인 되었습니다.");	
 			return;
 		}
 		var list = MemberDAO.getDAO().selectMemberList(id, EMemberAttribute.ID);
 		if(list.isEmpty()) {
-			// db에 데이터없음. 추후처리	
+			JOptionPane.showMessageDialog(loginManagePane, "ID가 없습니다.");	
 			return;
 		}
 		MemberDTO member = list.get(0);
 		if(!member.getPw().equals(pw)) {
-			// 비밀번호 틀림처리
+			JOptionPane.showMessageDialog(loginManagePane, "PW가 틀립니다.");	
 			return;
 		}
 		
@@ -71,6 +82,7 @@ public enum LoginManager {
 		viewLevelTabb();
 		viewLevelBook();
 		viewLevelMember();
+		JOptionPane.showMessageDialog(loginManagePane, "로그인 성공");	
 	}
 	
 	public void viewLevelTabb() {

@@ -29,6 +29,7 @@ public class JManagementSwing extends JFrame {
 	public void createTab() {
 		LoginManager.getInstance().setTabbPane(new JTabbedPane());
 	
+		LoginManager.getInstance().setLoginManagePane(new JLoginManagePane());
 		LoginManager.getInstance().setBookManagePane(new JBookManagePane());
 		LoginManager.getInstance().setMemberMangePane(new JMemberManagePane());
 		
@@ -36,15 +37,18 @@ public class JManagementSwing extends JFrame {
 		
 		panel = new JPanel[3];
 		
+		panel[0] = LoginManager.getInstance().getLoginManagePane();
 		panel[1] = LoginManager.getInstance().getBookManagePane();
 		panel[2] = LoginManager.getInstance().getMemberMangePane();
 			
 		
-		tabPane.addTab("로그인창", new JLabel("로그인창"));
+		tabPane.addTab("로그인창", panel[0]);
 		tabPane.addTab("도서 관리", panel[1]);
 		tabPane.addTab("회원 관리", panel[2]);
 		
-		tabPane.setSelectedIndex(2);	
+		tabPane.setSelectedIndex(0);
+		LoginManager.getInstance().viewLevelTabb();
+		//tabPane.setEnabled(false);
 
 	}
 	
