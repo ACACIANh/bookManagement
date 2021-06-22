@@ -24,6 +24,7 @@ import xyz.acacian.enums.EBdLayout;
 import xyz.acacian.enums.ECrudButton;
 import xyz.acacian.enums.ELevel;
 import xyz.acacian.enums.EMemberAttribute;
+import xyz.acacian.managers.LoginManager;
 import xyz.acacian.managers.MethodManager;
 import xyz.acacian.managers.UtilManager;
 
@@ -160,10 +161,12 @@ private static final long serialVersionUID = 1L;
 		
 	}
 
-	private void insertButton() {
+	public void insertButton() {
 		insertUpdateDialog.setVisible(true); 
-		((JInsertUpdateMemberDialog)insertUpdateDialog).radioInsertSelect(true); 
-		((JInsertUpdateMemberDialog)insertUpdateDialog).clearField();
+		JInsertUpdateMemberDialog dialog = (JInsertUpdateMemberDialog)insertUpdateDialog; 
+		dialog.radioInsertSelect(true); 
+		dialog.clearField();
+		dialog.setLevelsetEnabled(LoginManager.getInstance().isLogin());
 	}
 	
 	private void updateButton() {
@@ -272,5 +275,6 @@ private static final long serialVersionUID = 1L;
 		}
 		memberButton[ECrudButton.INSERT.getValue()].setEnabled(true);
 	}
+
 	
 }

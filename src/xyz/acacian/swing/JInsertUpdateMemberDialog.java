@@ -27,6 +27,12 @@ public class JInsertUpdateMemberDialog extends JDialog{
 	
 	private static final int START_ = 60;
 	private static final int INTERVAL_ = 40;
+	
+	private final static String titleInsert = "회원 INSERT / UPDATE";
+	private final static String titleSignup = "회원가입";
+	
+	private final static String buttonInsert = "INSERT / UPDATE";
+	private final static String buttonSignup = "가입신청";
 
 	private JTextField numberField;
 
@@ -42,12 +48,14 @@ public class JInsertUpdateMemberDialog extends JDialog{
 	private JRadioButton insertRadio;
 	private JRadioButton updateRadio;
 	
+	private JButton insertUpdateButton;
+	
 	private JMemberManagePane parentPanel;
 	
 	public JInsertUpdateMemberDialog(JMemberManagePane parent) {
 		this.parentPanel = parent;
 		
-		setTitle("회원 INSERT / UPDATE");
+		setTitle(titleInsert);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 600);
 		setResizable(false);
@@ -125,7 +133,7 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		birthdayField.setColumns(10);
 		
 		
-		JButton insertUpdateButton = new JButton("INSERT / UPDATE");
+		insertUpdateButton = new JButton(buttonInsert);
 		insertUpdateButton.setBounds(12, START_+INTERVAL_*7, 370, 73);
 		getContentPane().add(insertUpdateButton);
 		//insertUpdateButton.addActionListener(
@@ -167,6 +175,18 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		phoneField.setText("");
 		birthdayField.setText("");
 		levelComboBox.setSelectedIndex(2);
+	}
+	
+	public void setLevelsetEnabled(boolean on) {
+		if(on) {
+			setTitle(titleInsert);
+			insertUpdateButton.setText(buttonInsert);
+		}
+		else {
+			setTitle(titleSignup);
+			insertUpdateButton.setText(buttonSignup);
+		}
+		levelComboBox.setEnabled(on);
 	}
 	
 	public void setUpdateField(MemberDTO member) {
@@ -239,14 +259,7 @@ public class JInsertUpdateMemberDialog extends JDialog{
 	}
 
 	public boolean canInsertUpdate() {
-		String strTemp = nameField.getText();	
-		
-		if(strTemp.equals("")) {
-			JOptionPane.showMessageDialog(this, "이름을 입력해주세요.");
-			nameField.requestFocus();
-			return false;
-		}
-		strTemp = idField.getText();	
+		String strTemp = idField.getText();	
 		if(strTemp.equals("")) {
 			JOptionPane.showMessageDialog(this, "ID를 입력해주세요.");
 			idField.requestFocus();
@@ -256,6 +269,12 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		if(strTemp.equals("")) {
 			JOptionPane.showMessageDialog(this, "비밀번호를 입력해주세요.");
 			pwField.requestFocus();
+			return false;
+		}
+		strTemp = nameField.getText();	
+		if(strTemp.equals("")) {
+			JOptionPane.showMessageDialog(this, "이름을 입력해주세요.");
+			nameField.requestFocus();
 			return false;
 		}
 		strTemp = phoneField.getText();	
@@ -272,7 +291,6 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		}
 		return true;
 	}
-
 
 
 }

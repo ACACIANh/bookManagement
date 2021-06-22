@@ -64,7 +64,7 @@ public class JLoginManagePane extends JPanel {
 		
 		JButton insertMemberButton = new JButton("회원가입");
 		insertMemberButton.setBounds(12, START_ + INTERVAL_ * 5, 370, 73);
-		insertMemberButton.addActionListener(e-> System.out.println("회원가입창 띄우자"));
+		insertMemberButton.addActionListener(e-> memberInsert());
 		add(insertMemberButton);
 	}
 
@@ -96,6 +96,10 @@ public class JLoginManagePane extends JPanel {
 			return false;
 		}
 		return true;
+	}
+	
+	private void memberInsert() {
+		LoginManager.getInstance().getMemberMangePane().insertButton(); 
 	}
 	
 
