@@ -254,7 +254,7 @@ public class JBookManagePane extends JPanel{
 	
 	private void displayBooks(List<BookDTO> bookList) {
 		if(bookList.isEmpty()) {
-			//JOptionPane.showMessageDialog(this, "저장된 책이 없습니다.");
+			JOptionPane.showMessageDialog(this, "찾을 책이 없습니다.");
 			return;
 		}		
 		DefaultTableModel model = (DefaultTableModel)table.getModel();
