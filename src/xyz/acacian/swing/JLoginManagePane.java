@@ -58,7 +58,7 @@ public class JLoginManagePane extends JPanel {
 		loginQuickButton.setBounds(12, START_ + INTERVAL_ * 4, 370, 73);
 		loginQuickButton.addActionListener(e-> {
 			LoginManager.getInstance().Login("gkehdrn", "gkehdrn");
-			loginButton.setText("로그아웃"); });
+			logInButtonText(false); });
 		add(loginQuickButton);
 		
 		JButton insertMemberButton = new JButton("회원가입");
@@ -70,12 +70,11 @@ public class JLoginManagePane extends JPanel {
 	private void loginButton() {
 		if(LoginManager.getInstance().isLogin()) {
 			LoginManager.getInstance().logOut();
-			loginButton.setText("로그인");
+			logInButtonText(true);
 		}
 		if(!canLoginButton()) {
 			return;
-		}
-		loginButton.setText("로그아웃");
+		}		
 		LoginManager.getInstance().Login(idField.getText(), pwField.getText());		
 		clearField();
 	}
@@ -101,10 +100,14 @@ public class JLoginManagePane extends JPanel {
 		LoginManager.getInstance().getMemberMangePane().insertButton(); 
 	}
 	
-
 	public void clearField() {
 		idField.setText("");
 		pwField.setText("");	
+	}
+	
+	public void logInButtonText(boolean on) {
+		String str = on ? "로그인" : "로그아웃";
+		loginButton.setText(str);
 	}
 	
 }

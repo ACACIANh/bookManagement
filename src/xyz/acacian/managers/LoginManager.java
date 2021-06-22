@@ -83,6 +83,7 @@ public enum LoginManager {
 		viewLevelBook();
 		viewLevelMember();
 		
+		loginManagePane.logInButtonText(false);
 		bookManagePane.validateLogin();
 		memberManagePane.validateLogin();
 		
