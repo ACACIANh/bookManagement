@@ -107,3 +107,18 @@ SELECT * FROM (LOANMANAGER NATURAL JOIN MEMBERMANAGER);
 SELECT BOOK_NUM, (SELECT NAME FROM BOOKMANAGER WHERE NUM=2) AS BOOK_NAME, 
         MEMBER_NUM, (SELECT NAME FROM MEMBERMANAGER WHERE NUM=1) AS MEMBER_NAME
 FROM LOANMANAGER;
+
+select num, (SELECT name FROM loanmanager WHERE BOOK_NUM=bookmanager.num) as NAME2 from bookmanager order by num;
+
+select num, name, author, publisher, category, 
+(select member_num 
+from loanmanager 
+where book_num = bookmanager.num) as mem_num
+from bookmanager order by num
+
+
+
+
+
+
+

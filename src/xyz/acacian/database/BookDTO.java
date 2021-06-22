@@ -15,6 +15,7 @@ public class BookDTO {
 	private String author;
 	private String publisher;
 	private String category;
+	private String loan_member;
 	
 	public BookDTO() {
 		
@@ -28,6 +29,24 @@ public class BookDTO {
 		this.publisher = publisher;
 		this.category = category;
 	}
+	
+	public BookDTO(int num, String name, String author, String publisher, String category, String loan_member) {
+		super();
+		this.num = num;
+		this.name = name;
+		this.author = author;
+		this.publisher = publisher;
+		this.category = category;
+		this.loan_member = loan_member;
+	}
+	public String getLoan_member() {
+		return loan_member;
+	}
+
+	public void setLoan_member(String loan_member) {
+		this.loan_member = loan_member;
+	}
+
 	
 	public int getNum() {
 		return num;

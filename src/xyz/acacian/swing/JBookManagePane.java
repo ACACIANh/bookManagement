@@ -221,6 +221,7 @@ public class JBookManagePane extends JPanel{
 			rowData.add(book.getAuthor());
 			rowData.add(book.getPublisher());
 			rowData.add(book.getCategory());
+			rowData.add(book.getLoan_member());
 			model.addRow(rowData);
 		}
 	}
