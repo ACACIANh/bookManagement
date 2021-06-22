@@ -295,7 +295,22 @@ private static final long serialVersionUID = 1L;
 		for(var member: members) {
 			MemberDAO.getDAO().insertMember(member);
 		}
+		
+		makeDummyData(50);
 		JOptionPane.showMessageDialog(this, "처음 접속하여 회원 데이터가 추가되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);	
+	}
+	
+	public void makeDummyData(int size) {
+		for(int i=0; i< size; ++i) {
+			MemberDAO.getDAO().insertMember(
+				new MemberDTO(ELevel.MEMBER.getValue(),
+						"dummyID " + i,
+						"dummyPW " + i*2,
+						"dummyName "+i*3, 
+						"010-0000-0000",
+						"2000-01-01") 
+				);
+			}	
 	}
 	
 }

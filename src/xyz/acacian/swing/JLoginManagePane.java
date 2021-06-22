@@ -20,8 +20,6 @@ public class JLoginManagePane extends JPanel {
 	private JButton loginButton;
 
 	public JLoginManagePane() {
-		firstStart();
-		
 		setBounds(100, 100, 500, 600);
 		
 		JLabel idLabel = new JLabel("ID :");
@@ -109,12 +107,4 @@ public class JLoginManagePane extends JPanel {
 		pwField.setText("");	
 	}
 	
-	private void firstStart() {
-		
-		
-		
-		
-	}
-
-
 }

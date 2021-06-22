@@ -1,8 +1,11 @@
 package xyz.acacian.swing;
 
 import xyz.acacian.enums.ECrudButton;
+import xyz.acacian.enums.ELevel;
 import xyz.acacian.database.BookDAO;
 import xyz.acacian.database.BookDTO;
+import xyz.acacian.database.MemberDAO;
+import xyz.acacian.database.MemberDTO;
 import xyz.acacian.enums.EBdLayout;
 import xyz.acacian.enums.EBookAttribute;
 import xyz.acacian.enums.ECategory;
@@ -283,15 +286,27 @@ public class JBookManagePane extends JPanel{
 				new BookDTO(0,"그리고 아무도 없었다", "애거사 크리스티", "해문출판사", ECategory.LITERATURE.getValue()),
 				new BookDTO(0,"토비의 스프링", "이일민", "에이콘출판사", ECategory.NATURAL_SCIENCES.getValue()),				
 				new BookDTO(0,"제목2","저자3","출판사5", ECategory.GENERAL_WORCKS.getValue()),
-				new BookDTO(0,"제3목3","저3자3","출판사4", ECategory.GENERAL_WORCKS.getValue()),
-				new BookDTO(0,"제3목4","저3자3","출판사3", ECategory.GENERAL_WORCKS.getValue()),
-				new BookDTO(0,"제3목5","저3자3","출판사2", ECategory.GENERAL_WORCKS.getValue()),
 		};
 				
 		for(var book: books) {
 			BookDAO.getDAO().insertBook(book);
 		}
+		
+		makeDummyData(20);
+
 		JOptionPane.showMessageDialog(this, "처음 접속하여 책 데이터가 추가되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);	
+	}
+	
+	public void makeDummyData(int size) {
+		for(int i=0; i< size; ++i) {
+			BookDAO.getDAO().insertBook(
+				new BookDTO(0,
+						"더미 제목 " + i,
+						"더미 저자 " +i*2,
+						"더미 출판사 "+i*3, 
+						ECategory.values()[i%ECategory.values().length].getValue())
+				);
+			}	
 	}
 
 	

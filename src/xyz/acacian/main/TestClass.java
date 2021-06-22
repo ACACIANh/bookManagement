@@ -37,7 +37,10 @@ public class TestClass {
 		
 		JManagementSwing ms = new JManagementSwing();
 		ms.setVisible(true);
-
+		
+//		LoginManager.getInstance().getBookManagePane().makeDummyData(20);
+//		LoginManager.getInstance().getMemberMangePane().makeDummyData(20);
+		
 		//LoginManager.getInstance().Login("gkehdrn", "gkehdrn");
 		//LoginManager.getInstance().Login("gkehdrn2", "gkehdrn2");
 		//LoginManager.getInstance().Login("test", "test");
