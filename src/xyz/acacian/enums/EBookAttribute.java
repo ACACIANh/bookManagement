@@ -6,7 +6,8 @@ public enum EBookAttribute {
 	NAME(1), 
 	AUTHOR(2), 
 	PUBLISHER(3), 
-	CATEGORY(4)
+	CATEGORY(4),
+	LOAN(5)
 	;
 
 	private final int value;
@@ -39,6 +40,9 @@ public enum EBookAttribute {
 		case CATEGORY:
 			str = "분류";
 			break;
+		case LOAN:
+			str = "대출";
+			break;			
 		}
 		return str;
 	}
@@ -61,6 +65,9 @@ public enum EBookAttribute {
 		case CATEGORY:
 			str = "category";
 			break;
+		case LOAN:
+			str = "loan";
+			break;		
 		}
 		return str;
 	}

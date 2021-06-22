@@ -16,7 +16,8 @@ public class Book implements Serializable {
 											   EBookAttribute.NAME.getString(),
 											   EBookAttribute.AUTHOR.getString(),
 											   EBookAttribute.PUBLISHER.getString(),
-											   EBookAttribute.CATEGORY.getString()};
+											   EBookAttribute.CATEGORY.getString(),
+											   EBookAttribute.LOAN.getString()};
 	
 	
 	private static int seedId = 0;

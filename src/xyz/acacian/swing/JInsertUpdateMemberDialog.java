@@ -269,7 +269,7 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		}
 		String idReg = "^[a-zA-Z][a-zA-Z0-9]{1,20}$";
 		if(!Pattern.matches(idReg, strTemp)) {
-			JOptionPane.showMessageDialog(this, "ID를 영문자 숫자를 조합하여 최소2자리 최대10자리로 맞춰주세요.");
+			JOptionPane.showMessageDialog(this, "ID를 영문자 숫자를 조합하여 최소2자리 최대20자리로 맞춰주세요.");
 			phoneField.requestFocus();
 			return false;
 		}
@@ -282,7 +282,7 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		}
 		String pwReg = "^[a-zA-Z][a-zA-Z0-9]{1,20}$";
 		if(!Pattern.matches(pwReg, strTemp)) {
-			JOptionPane.showMessageDialog(this, "PW를 영문자 숫자를 조합하여 최소2자리 최대10자리로 맞춰주세요.");
+			JOptionPane.showMessageDialog(this, "PW를 영문자 숫자를 조합하여 최소2자리 최대20자리로 맞춰주세요.");
 			phoneField.requestFocus();
 			return false;
 		}

@@ -21,7 +21,8 @@ public class MemberDTO {
 												EMemberAttribute.PW.getString(),
 												EMemberAttribute.NAME.getString(),
 												EMemberAttribute.PHONE.getString(),
-												EMemberAttribute.BIRTHDAY.getString()};
+												EMemberAttribute.BIRTHDAY.getString(),
+												EMemberAttribute.LOAN.getString()};
 
 	private int num;
 	private int id_level;

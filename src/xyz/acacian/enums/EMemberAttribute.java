@@ -7,7 +7,8 @@ public enum EMemberAttribute {
 	PW(3), 
 	NAME(4), 
 	PHONE(5), 
-	BIRTHDAY(6)
+	BIRTHDAY(6),
+	LOAN(7)
 	;
 
 	private final int value;
@@ -46,6 +47,9 @@ public enum EMemberAttribute {
 		case BIRTHDAY:
 			str = "생일";
 			break;
+		case LOAN:
+			str = "대출";
+			break;
 		}
 		return str;
 	}
@@ -73,6 +77,9 @@ public enum EMemberAttribute {
 			break;
 		case BIRTHDAY:
 			str = "birthday";
+			break;
+		case LOAN:
+			str = "loan";
 			break;
 		}
 		return str;
