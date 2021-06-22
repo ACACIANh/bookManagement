@@ -10,6 +10,7 @@ import xyz.acacian.enums.EBdLayout;
 import xyz.acacian.enums.EBookAttribute;
 import xyz.acacian.enums.ECategory;
 import xyz.acacian.managers.BookManager;
+import xyz.acacian.managers.LoginManager;
 import xyz.acacian.managers.MethodManager;
 import xyz.acacian.managers.UtilManager;
 import xyz.acacian.objects.Book;
@@ -60,6 +61,8 @@ public class JBookManagePane extends JPanel{
 	private JTable table = null;
 	private DefaultTableModel tableModel = null;
 	//private int selectRowIndex = -1;
+	
+	private JLabel idLabel = null;
 	
 	public JBookManagePane() {
 		firstStart();
@@ -164,14 +167,14 @@ public class JBookManagePane extends JPanel{
 		///////////////////////////
 		//TopSidePanel Constructor
 		///////////////////////////
-
-		add(new JLabel("여백의 미"), BorderLayout.NORTH);
+		idLabel = new JLabel("여백의 미");
+		add(idLabel, BorderLayout.NORTH);
 		
 		///////////////////////////
 		//RightSidePanel Constructor
 		///////////////////////////
 		
-		add(new JLabel("여백의 미"), BorderLayout.EAST);
+		//add(new JLabel("여백의 미"), BorderLayout.EAST);
 		
 	}
 
@@ -308,7 +311,11 @@ public class JBookManagePane extends JPanel{
 				);
 			}	
 	}
+	
+	public void validateLogin() {
+		idLabel.setText(
+				"현재 접속중인 ID : " + LoginManager.getInstance().getId() +
+				"  권한 : " + ELevel.getParse(LoginManager.getInstance().getLevelInt()) );	
+	}
 
-	
-	
 }

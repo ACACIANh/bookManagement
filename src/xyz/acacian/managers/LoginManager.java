@@ -82,6 +82,10 @@ public enum LoginManager {
 		viewLevelTabb();
 		viewLevelBook();
 		viewLevelMember();
+		
+		bookManagePane.validateLogin();
+		memberManagePane.validateLogin();
+		
 		JOptionPane.showMessageDialog(loginManagePane, "로그인 성공");	
 		tabbPane.setSelectedIndex(1);
 	}
@@ -143,8 +147,16 @@ public enum LoginManager {
 	public void logOut() {
 		this.member = null;
 		viewLevelTabb();
-		JOptionPane.showMessageDialog(loginManagePane, "로그아웃 성공");	
-		
+		JOptionPane.showMessageDialog(loginManagePane, "로그아웃 성공");		
 	}
 		
+	public String getId() {
+		return member != null ? member.getId() : "" ;
+	}
+	public String getLevel() {
+		return member != null ? Integer.toString(member.getId_level()) : "" ;
+	}
+	public int getLevelInt() {
+		return member != null ? member.getId_level() : 0 ;
+	}
 }

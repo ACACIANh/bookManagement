@@ -43,6 +43,8 @@ private static final long serialVersionUID = 1L;
 	
 	private JDialog insertUpdateDialog = null;
 	
+	private JLabel idLabel = null;
+	
 	//BottomSide
 	private EMemberAttribute searchAttribute = EMemberAttribute.NAME;
 	private JComboBox searchComboBox = null;
@@ -155,13 +157,14 @@ private static final long serialVersionUID = 1L;
 		//TopSidePanel Constructor
 		///////////////////////////
 
-		add(new JLabel("여백의 미"), BorderLayout.NORTH);
-		
+		idLabel = new JLabel("여백의 미"); 
+		add(idLabel, BorderLayout.NORTH);
+		 
 		///////////////////////////
 		//RightSidePanel Constructor
 		///////////////////////////
 		
-		add(new JLabel("여백의 미"), BorderLayout.EAST);
+		//add(new JLabel("여백의 미"), BorderLayout.EAST);
 		
 	}
 
@@ -296,7 +299,7 @@ private static final long serialVersionUID = 1L;
 			MemberDAO.getDAO().insertMember(member);
 		}
 		
-		makeDummyData(50);
+		makeDummyData(20);
 		JOptionPane.showMessageDialog(this, "처음 접속하여 회원 데이터가 추가되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);	
 	}
 	
@@ -312,5 +315,12 @@ private static final long serialVersionUID = 1L;
 				);
 			}	
 	}
+	
+	public void validateLogin() {
+		idLabel.setText(
+				"현재 접속중인 ID : " + LoginManager.getInstance().getId() +
+				"  권한 : " + ELevel.getParse(LoginManager.getInstance().getLevelInt()) );	
+	}
+
 	
 }
