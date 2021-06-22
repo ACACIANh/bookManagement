@@ -2,6 +2,8 @@ package xyz.acacian.swing;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -265,12 +267,26 @@ public class JInsertUpdateMemberDialog extends JDialog{
 			idField.requestFocus();
 			return false;
 		}
+		String idReg = "^[a-zA-Z][a-zA-Z0-9]{1,20}$";
+		if(!Pattern.matches(idReg, strTemp)) {
+			JOptionPane.showMessageDialog(this, "ID를 영문자 숫자를 조합하여 최소2자리 최대10자리로 맞춰주세요.");
+			phoneField.requestFocus();
+			return false;
+		}
+		
 		strTemp = pwField.getText();	
 		if(strTemp.equals("")) {
 			JOptionPane.showMessageDialog(this, "비밀번호를 입력해주세요.");
 			pwField.requestFocus();
 			return false;
 		}
+		String pwReg = "^[a-zA-Z][a-zA-Z0-9]{1,20}$";
+		if(!Pattern.matches(pwReg, strTemp)) {
+			JOptionPane.showMessageDialog(this, "PW를 영문자 숫자를 조합하여 최소2자리 최대10자리로 맞춰주세요.");
+			phoneField.requestFocus();
+			return false;
+		}
+		
 		strTemp = nameField.getText();	
 		if(strTemp.equals("")) {
 			JOptionPane.showMessageDialog(this, "이름을 입력해주세요.");
@@ -280,15 +296,29 @@ public class JInsertUpdateMemberDialog extends JDialog{
 		strTemp = phoneField.getText();	
 		if(strTemp.equals("")) {
 			JOptionPane.showMessageDialog(this, "번호를 입력해주세요.");
-			nameField.requestFocus();
+			phoneField.requestFocus();
 			return false;
 		}
+		String phoneReg = "010-\\d{3,4}-\\d{4}";
+		if(!Pattern.matches(phoneReg, strTemp)) {
+			JOptionPane.showMessageDialog(this, "번호를 010-0000-0000 형식으로 입력해주세요.");
+			phoneField.requestFocus();
+			return false;
+		}
+		
 		strTemp = birthdayField.getText();		
 		if(strTemp.equals("")) {
 			JOptionPane.showMessageDialog(this, "생일을 입력해주세요.");
-			nameField.requestFocus();
+			birthdayField.requestFocus();
 			return false;
 		}
+		String birthdayReg = "(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])";
+		if(!Pattern.matches(birthdayReg, strTemp)) {
+			JOptionPane.showMessageDialog(this, "생일을 1995-01-01 형식으로 입력해주세요.");
+			phoneField.requestFocus();
+			return false;
+		}
+		
 		return true;
 	}
 

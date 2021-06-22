@@ -117,7 +117,7 @@ public class MemberDAO extends JdbcDAO {
 				member.setPw(rs.getString("pw"));
 				member.setName(rs.getString("name"));
 				member.setPhone(rs.getString("phone"));
-				member.setBirthday(rs.getString("birthday"));
+				member.setBirthday(rs.getString("birthday").substring(0,10));
 				memberList.add(member);
 			}
 			
@@ -154,7 +154,7 @@ public class MemberDAO extends JdbcDAO {
 				member.setPw(rs.getString("pw"));
 				member.setName(rs.getString("name"));
 				member.setPhone(rs.getString("phone"));
-				member.setBirthday(rs.getString("birthday"));
+				member.setBirthday(rs.getString("birthday").substring(0,10));
 				memberList.add(member);
 			}
 		} catch(SQLException e) {
