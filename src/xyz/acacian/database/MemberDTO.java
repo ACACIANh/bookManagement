@@ -47,6 +47,16 @@ public class MemberDTO {
 		this.phone = phone;
 		this.birthday = birthday;
 	}
+	
+	public MemberDTO(int id_level, String id, String pw, String name, String phone, String birthday) {
+		super();
+		this.id_level = id_level;
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.phone = phone;
+		this.birthday = birthday;
+	}
 	public MemberDTO(int num, int id_level, String id, String pw, String name, String phone, String birthday,
 			String loan_book) {
 		super();

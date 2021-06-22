@@ -18,9 +18,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import xyz.acacian.database.BookDAO;
+import xyz.acacian.database.BookDTO;
 import xyz.acacian.database.MemberDAO;
 import xyz.acacian.database.MemberDTO;
 import xyz.acacian.enums.EBdLayout;
+import xyz.acacian.enums.ECategory;
 import xyz.acacian.enums.ECrudButton;
 import xyz.acacian.enums.ELevel;
 import xyz.acacian.enums.EMemberAttribute;
@@ -54,6 +57,7 @@ private static final long serialVersionUID = 1L;
 	private DefaultTableModel tableModel = null;
 
 	public JMemberManagePane() {
+		firstStart();
 		setLayout(new BorderLayout());
 		
 		mainPanel = new JPanel[EBdLayout.size()];
@@ -275,6 +279,23 @@ private static final long serialVersionUID = 1L;
 		}
 		memberButton[ECrudButton.INSERT.getValue()].setEnabled(true);
 	}
+	private void firstStart() {
+		if(!MemberDAO.getDAO().selectAllMemberList().isEmpty()) {
+			return;
+		}
 
+		MemberDTO[] members = {
+			new MemberDTO(ELevel.ADMIN.getValue(), "gkehdrn","gkehdrn","하동구", "010-8966-9519", "1995-01-09"),
+			new MemberDTO(ELevel.LIBRARIAN.getValue(), "gkehdrn2","gkehdrn2","하동구", "010-8966-9519", "1995-01-09"),
+			new MemberDTO(ELevel.MEMBER.getValue(), "gkehdrn3","gkehdrn3","하동구", "010-8966-9519", "1995-01-09"),
+			new MemberDTO(ELevel.MEMBER.getValue(), "test","test","테스트", "010-0000-0000", "1990-01-01"),
+			new MemberDTO(ELevel.MEMBER.getValue(), "nono","nono","자바몬", "010-9999-9999", "2000-12-30")				
+		};
+				
+		for(var member: members) {
+			MemberDAO.getDAO().insertMember(member);
+		}
+		JOptionPane.showMessageDialog(this, "처음 접속하여 회원 데이터가 추가되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);	
+	}
 	
 }
