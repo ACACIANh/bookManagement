@@ -166,7 +166,7 @@ private static final long serialVersionUID = 1L;
 		JInsertUpdateMemberDialog dialog = (JInsertUpdateMemberDialog)insertUpdateDialog; 
 		dialog.radioInsertSelect(true); 
 		dialog.clearField();
-		dialog.setLevelsetEnabled(LoginManager.getInstance().isLogin());
+		dialog.setLevelsetEnabled(LoginManager.getInstance().isAdmin());
 	}
 	
 	private void updateButton() {

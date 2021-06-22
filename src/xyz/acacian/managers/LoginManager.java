@@ -136,6 +136,9 @@ public enum LoginManager {
 	public boolean isLogin() {
 		return member != null;
 	}
+	public boolean isAdmin() {
+		return member != null && member.getId_level() < 1;		
+	}
 	
 	public void logOut() {
 		this.member = null;

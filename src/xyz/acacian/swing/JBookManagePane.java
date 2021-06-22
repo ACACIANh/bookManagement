@@ -5,6 +5,7 @@ import xyz.acacian.database.BookDAO;
 import xyz.acacian.database.BookDTO;
 import xyz.acacian.enums.EBdLayout;
 import xyz.acacian.enums.EBookAttribute;
+import xyz.acacian.enums.ECategory;
 import xyz.acacian.managers.BookManager;
 import xyz.acacian.managers.MethodManager;
 import xyz.acacian.managers.UtilManager;
@@ -58,6 +59,8 @@ public class JBookManagePane extends JPanel{
 	//private int selectRowIndex = -1;
 	
 	public JBookManagePane() {
+		firstStart();
+		
 		setLayout(new BorderLayout());
 		
 		mainPanel = new JPanel[EBdLayout.size()];
@@ -269,4 +272,28 @@ public class JBookManagePane extends JPanel{
 		}
 	}
 
+	private void firstStart() {
+		if(!BookDAO.getDAO().selectAllBookList().isEmpty()) {
+			return;
+		}
+
+		BookDTO[] books = {
+				new BookDTO(0,"제목1","저자1","출판사1", ECategory.GENERAL_WORCKS.getValue()),
+				new BookDTO(0,"JAVA의 정석", "남궁성", "도우출판", ECategory.LANGUAGE.getValue()),
+				new BookDTO(0,"그리고 아무도 없었다", "애거사 크리스티", "해문출판사", ECategory.LITERATURE.getValue()),
+				new BookDTO(0,"토비의 스프링", "이일민", "에이콘출판사", ECategory.NATURAL_SCIENCES.getValue()),				
+				new BookDTO(0,"제목2","저자3","출판사5", ECategory.GENERAL_WORCKS.getValue()),
+				new BookDTO(0,"제3목3","저3자3","출판사4", ECategory.GENERAL_WORCKS.getValue()),
+				new BookDTO(0,"제3목4","저3자3","출판사3", ECategory.GENERAL_WORCKS.getValue()),
+				new BookDTO(0,"제3목5","저3자3","출판사2", ECategory.GENERAL_WORCKS.getValue()),
+		};
+				
+		for(var book: books) {
+			BookDAO.getDAO().insertBook(book);
+		}
+		JOptionPane.showMessageDialog(this, "처음 접속하여 책 데이터가 추가되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);	
+	}
+
+	
+	
 }
